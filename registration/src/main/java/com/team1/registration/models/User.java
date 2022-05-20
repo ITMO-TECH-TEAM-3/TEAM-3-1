@@ -1,13 +1,24 @@
 package com.team1.registration.models;
 
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
+
+import javax.persistence.*;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "users")
 public class User {
     // todo: Add other user fields
-    private int id;
+
+    @Id
+    @GeneratedValue
+    @Column(name = "user_id")
+    private Integer id;
+
+    @Column(name = "user_name", nullable = false)
     private String name;
 }
