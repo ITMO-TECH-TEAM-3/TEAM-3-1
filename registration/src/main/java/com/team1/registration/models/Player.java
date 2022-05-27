@@ -10,7 +10,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "players")
-public class Player{
+public class Player {
     @Id
     @GeneratedValue
     @Column(name = "player_id")
@@ -27,7 +27,4 @@ public class Player{
 
     @Column(name = "player_balance", nullable = false)
     private String balance;
-
-    // some player matches statistics
-    // some player bet statistics
 }

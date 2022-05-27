@@ -6,7 +6,8 @@
             <span style="color:deepskyblue">Ke</span><span style="color:deeppink">KISS</span>
         </div>
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -18,7 +19,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="/organize">Organize</a>
             </li>
-<#--            <#if isAdmin>-->
+            <#--            <#if isAdmin>-->
             <li class="nav-item">
                 <a class="nav-link" href="/login">
                     <div align="right">
@@ -33,10 +34,10 @@
                     </a>
                 </div>
             </li>
-<#--            </#if>-->
+            <#--            </#if>-->
         </ul>
 
-<#--        <div class="navbar-text mr-3">${name}</div>-->
-<#--        <@l.logout />-->
+        <#--        <div class="navbar-text mr-3">${name}</div>-->
+        <#--        <@l.logout />-->
     </div>
 </nav>
