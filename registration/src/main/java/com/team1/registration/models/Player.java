@@ -6,14 +6,11 @@ import lombok.*;
 import javax.persistence.*;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "players")
-public class Player {
-    // todo: Add other user fields
-
+public class Player{
     @Id
     @GeneratedValue
     @Column(name = "player_id")
@@ -21,4 +18,16 @@ public class Player {
 
     @Column(name = "player_name", nullable = false)
     private String name;
+
+    @Column(name = "team_id")
+    private int teamId;
+
+    @Column(name = "player_password", nullable = false)
+    private String password;
+
+    @Column(name = "player_balance", nullable = false)
+    private String balance;
+
+    // some player matches statistics
+    // some player bet statistics
 }
