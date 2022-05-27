@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "players")
 public class Player {
-    // todo: Add other user fields
+    // todo: Add other player fields
 
     @Id
     @GeneratedValue
