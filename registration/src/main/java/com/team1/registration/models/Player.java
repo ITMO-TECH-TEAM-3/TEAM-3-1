@@ -10,15 +10,15 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "players")
+public class Player {
     // todo: Add other user fields
 
     @Id
     @GeneratedValue
-    @Column(name = "user_id")
+    @Column(name = "player_id")
     private Integer id;
 
-    @Column(name = "user_name", nullable = false)
+    @Column(name = "player_name", nullable = false)
     private String name;
 }
