@@ -14,7 +14,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/">Tournaments</a>
+                <a class="nav-link" href="/tournaments">Tournaments</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/organize">Organize</a>
