@@ -1,0 +1,8 @@
+#sign_in, #sign_up{
+    display: flex;
+    align-items: flex-end;
+}
+body{
+    background-color: red;
+    color:red;
+}
