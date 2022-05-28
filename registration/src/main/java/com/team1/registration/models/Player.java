@@ -22,8 +22,8 @@ public class Player {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ManyToOne
-    private Team team;
+//    @ManyToOne
+//    private Team team;
 
     @Column(name = "balance", nullable = false)
     private String balance;

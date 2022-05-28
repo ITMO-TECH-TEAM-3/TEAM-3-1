@@ -25,6 +25,6 @@ public class Team {
 //    private Integer creatorId;
 
 
-    @OneToMany
-    private List<Player> players;
+//    @OneToMany
+//    private List<Player> players;
 }

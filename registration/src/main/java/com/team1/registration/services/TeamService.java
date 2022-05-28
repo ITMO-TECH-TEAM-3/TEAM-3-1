@@ -22,10 +22,10 @@ public class TeamService {
     }
 
     public void addNewPlayer(Integer teamId, Player newPlayer) {
-        var team = teamRepository.getById(teamId);
-        var players = team.getPlayers();
-        players.add(newPlayer); // todo: check if contains
-        team.setPlayers(players);
-        teamRepository.save(team);
+//        var team = teamRepository.getById(teamId);
+//        var players = team.getPlayers();
+//        players.add(newPlayer); // todo: check if contains
+//        team.setPlayers(players);
+//        teamRepository.save(team);
     }
 }
