@@ -19,25 +19,25 @@
             <li class="nav-item">
                 <a class="nav-link" href="/organize">Organize</a>
             </li>
-            <#--            <#if isAdmin>-->
+            <#if !isAuthorized>
             <li class="nav-item">
                 <a class="nav-link" href="/login">
-                    <div align="right">
+                    <div id="sign_in">
                         Sign in
                     </div>
                 </a>
             </li>
             <li class="nav-item">
-                <div style="text-align:center">
                     <a class="nav-link" href="/register">
-                        Sign up
+                        <div id="sign_up">
+                            Sign up
+                        </div>
                     </a>
-                </div>
-            </li>
-            <#--            </#if>-->
+                </li>
+            </#if>
         </ul>
 
-        <#--        <div class="navbar-text mr-3">${name}</div>-->
-        <#--        <@l.logout />-->
+        <div class="navbar-text mr-3">${name}</div>
+<#--        <@l.logout />-->
     </div>
 </nav>
