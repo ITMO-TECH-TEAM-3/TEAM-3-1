@@ -10,8 +10,7 @@ import java.util.Set;
 
 @Data
 @Entity
-// Users table name is not recommended
-@Table(name = "usr")
+@Table(name = "users")
 public class User implements UserDetails {
 
     @Override
@@ -43,22 +42,22 @@ public class User implements UserDetails {
         return active;
     }
 
-    public boolean isAuthorized(){
+    public boolean isAuthorized() {
         return roles.contains(Role.AUTHORIZED_USER);
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "username")
+    @Column(name = "username", nullable = false)
     private String username;
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
-    @Column(name = "active")
+    @Column(name = "active", nullable = false)
     private boolean active;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "userRoles",  joinColumns = @JoinColumn(name = "userId"))
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 }

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -12,13 +13,18 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Team {
-    // todo: Add other team fields
-
     @Id
     @GeneratedValue
-    @Column(name = "team_id")
+    @Column(name = "id")
     private Integer id;
 
-    @Column(name = "team_name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
+
+//    @Column(name = "creator_id", nullable = false)
+//    private Integer creatorId;
+
+
+    @OneToMany
+    private List<Player> players;
 }
