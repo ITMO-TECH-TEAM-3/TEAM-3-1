@@ -1,4 +1,4 @@
-package com.team1.registration.controllers;
+package com.team1.registration.controllers.player;
 
 import com.team1.registration.models.Player;
 import com.team1.registration.services.PlayerService;
