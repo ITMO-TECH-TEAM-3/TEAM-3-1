@@ -1,7 +1,9 @@
 package com.team1.registration.models;
 
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -20,12 +22,12 @@ public class Player {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "teamId")
-    private int teamId;
+    @ManyToOne
+    private Team team;
 
     @Column(name = "balance", nullable = false)
     private String balance;
 
-    @Column(name = "userId")
-    private int userId;
+    @Column(name = "user_id")
+    private Integer userId;
 }
