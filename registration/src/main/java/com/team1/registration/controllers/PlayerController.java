@@ -10,12 +10,11 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("players")
 @AllArgsConstructor
+@RequestMapping("/players")
 public class PlayerController {
     private PlayerService playerService;
 
-    //todo: match endpoints
     @PostMapping
     public void registerPlayer(@RequestBody Player player) {
         log.info("New player registration");
