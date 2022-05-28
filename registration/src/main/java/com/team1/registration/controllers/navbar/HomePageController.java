@@ -11,4 +11,19 @@ public class HomePageController {
     public String home() {
         return "navbar/home";
     }
+
+    @GetMapping("/register")
+    public String register(){
+        return "navbar/register";
+    }
+
+    @GetMapping("/login")
+    public String login(){
+        return "navbar/login";
+    }
+
+    @GetMapping("tournaments")
+    public String tournaments(){ // todo: fix name
+        return "tournaments";
+    }
 }

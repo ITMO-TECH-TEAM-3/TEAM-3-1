@@ -17,11 +17,6 @@ public class RegisterUserPageController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping("/register")
-    public String register(){
-        return "navbar/register";
-    }
-
     @PostMapping("/register")
     public String registerUser(User user, Map<String, Object> model){
         User userFromDb = userRepository.findByUsername(user.getUsername());
