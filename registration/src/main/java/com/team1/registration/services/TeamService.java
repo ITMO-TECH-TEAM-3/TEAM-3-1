@@ -12,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class TeamService {
     private TeamRepository teamRepository;
+    private PlayerService playerService;
 
     public void registerTeam(Team team) {
         teamRepository.save(team); //todo: check data for correctness
@@ -19,5 +20,22 @@ public class TeamService {
 
     public List<Team> getAllTeams() {
         return teamRepository.findAll();
+    }
+
+    public Team getTeamById(Integer teamId){
+        for (Team team:
+                getAllTeams()) {
+            if (team.getId() == teamId){
+                return team;
+            }
+        }
+
+        return null;
+    }
+
+    public void addNewPlayer(Integer teamId, Integer playerId){
+        Team team = getTeamById(teamId);
+        Player player = playerService.getPlayerById(playerId);
+        team.getPlayers_id().add(player);
     }
 }

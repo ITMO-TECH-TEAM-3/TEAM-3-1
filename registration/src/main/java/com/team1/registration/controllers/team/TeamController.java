@@ -24,10 +24,15 @@ public class TeamController {
         return teamService.getAllTeams();
     }
 
-//    @PutMapping("/{teamId}")
-//    public void addNewPlayer(@PathVariable Integer teamId, Player player) {
-//        teamService.addNewPlayer(teamId, player);
-//    }
+    @GetMapping("/{teamId}")
+    public Team getTeam(@PathVariable Integer teamId){
+        return teamService.getTeamById(teamId);
+    }
+
+    @PutMapping("/{teamId}/{playerId}")
+    public void addNewPlayer(@PathVariable Integer teamId, @PathVariable Integer playerId) {
+        teamService.addNewPlayer(teamId, playerId);
+    }
 
     // todo: create team for player
     /*

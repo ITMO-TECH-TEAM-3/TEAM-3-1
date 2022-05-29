@@ -19,11 +19,14 @@ public class PlayerController {
     }
 
     @GetMapping
-    public List<Player> getAllUsers() {
+    public List<Player> getAllPlayers() {
         return playerService.getAllPlayers();
     }
 
-
+    @GetMapping("/{playerId}")
+    public Player getPlayerById(@PathVariable Integer playerId){
+        return playerService.getPlayerById(playerId);
+    }
     /*
         todo: create new team for player
         this method can be in other controller?

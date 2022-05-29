@@ -1,6 +1,7 @@
 package com.team1.registration.services;
 
 import com.team1.registration.models.Player;
+import com.team1.registration.models.Team;
 import com.team1.registration.repositories.PlayerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,5 +20,16 @@ public class PlayerService {
 
     public List<Player> getAllPlayers() {
         return playerRepository.findAll();
+    }
+
+    public Player getPlayerById(Integer playerId){
+        for (Player player:
+                getAllPlayers()) {
+            if (player.getId() == playerId){
+                return player;
+            }
+        }
+
+        return null;
     }
 }

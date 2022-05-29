@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.LinkedList;
 import java.util.List;
 
 @Data
@@ -30,6 +31,6 @@ public class Team {
         todo: @OneToMany ? @ManyToMany / @ManyToOne
         how to connect teams and players
      */
-//    @OneToMany
-//    private List<Player> players;
+    @OneToMany(mappedBy = "team", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Player> players_id;
 }

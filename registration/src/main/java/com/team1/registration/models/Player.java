@@ -26,8 +26,9 @@ public class Player {
         todo: @OneToMany ? @ManyToMany / @ManyToOne
         how to connect teams and players
      */
-//    @ManyToOne
-//    private Team team;
+    @JoinColumn(name = "team")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Team team;
 
     @Column(name = "balance", nullable = false)
     private String balance;
