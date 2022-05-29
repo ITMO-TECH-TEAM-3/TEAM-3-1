@@ -22,6 +22,10 @@ public class Player {
     @Column(name = "name", nullable = false)
     private String name;
 
+    /*
+        todo: @OneToMany ? @ManyToMany / @ManyToOne
+        how to connect teams and players
+     */
 //    @ManyToOne
 //    private Team team;
 

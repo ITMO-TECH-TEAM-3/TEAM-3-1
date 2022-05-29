@@ -21,10 +21,15 @@ public class Team {
     @Column(name = "name", nullable = false)
     private String name;
 
-//    @Column(name = "creator_id", nullable = false)
-//    private Integer creatorId;
+    // todo: understand where this field is assigned
+    @Column(name = "creator_id", nullable = false)
+    private Integer creatorId;
 
 
+    /*
+        todo: @OneToMany ? @ManyToMany / @ManyToOne
+        how to connect teams and players
+     */
 //    @OneToMany
 //    private List<Player> players;
 }

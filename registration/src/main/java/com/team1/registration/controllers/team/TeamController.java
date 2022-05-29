@@ -24,8 +24,15 @@ public class TeamController {
         return teamService.getAllTeams();
     }
 
-    @PutMapping("/{teamId}")
-    public void addNewPlayer(@PathVariable Integer teamId, Player player) {
-        teamService.addNewPlayer(teamId, player);
-    }
+//    @PutMapping("/{teamId}")
+//    public void addNewPlayer(@PathVariable Integer teamId, Player player) {
+//        teamService.addNewPlayer(teamId, player);
+//    }
+
+    // todo: create team for player
+    /*
+        todo: add new player to team
+        when u add new player, u need to check tournament settings (team may have only N people)
+     */
+
 }

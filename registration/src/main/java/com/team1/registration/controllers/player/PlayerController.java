@@ -22,4 +22,10 @@ public class PlayerController {
     public List<Player> getAllUsers() {
         return playerService.getAllPlayers();
     }
+
+
+    /*
+        todo: create new team for player
+        this method can be in other controller?
+     */
 }
