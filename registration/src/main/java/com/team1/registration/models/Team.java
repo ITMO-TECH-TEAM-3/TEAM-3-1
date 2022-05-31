@@ -1,6 +1,7 @@
 package com.team1.registration.models;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,19 +12,19 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "teams")
+@Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
 public class Team {
     @Id
     @GeneratedValue
-    @Column(name = "id")
     private Integer id;
 
-    @Column(name = "name", nullable = false)
+    @Column(nullable = false)
     private String name;
 
     // todo: understand where this field is assigned
-    @Column(name = "creator_id", nullable = false)
+    @Column(nullable = false)
     private Integer creatorId;
 
 
@@ -31,6 +32,6 @@ public class Team {
         todo: @OneToMany ? @ManyToMany / @ManyToOne
         how to connect teams and players
      */
-    @OneToMany(mappedBy = "team", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Player> players_id;
+    @OneToMany(mappedBy = "team")
+    private List<Player> playersId;
 }

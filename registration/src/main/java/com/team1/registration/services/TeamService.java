@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class TeamService {
     private TeamRepository teamRepository;
-    private PlayerService playerService;
+//    private PlayerService playerService;
 
     public void registerTeam(Team team) {
         teamRepository.save(team); //todo: check data for correctness
@@ -23,19 +23,16 @@ public class TeamService {
     }
 
     public Team getTeamById(Integer teamId){
-        for (Team team:
-                getAllTeams()) {
-            if (team.getId() == teamId){
-                return team;
-            }
-        }
-
-        return null;
+       return teamRepository.findById(teamId).orElse(null);
     }
 
-    public void addNewPlayer(Integer teamId, Integer playerId){
-        Team team = getTeamById(teamId);
-        Player player = playerService.getPlayerById(playerId);
-        team.getPlayers_id().add(player);
-    }
+//    public void updateTeam(Integer teamId, Team team){
+//        var updatedTeam = teamRepository.getById(teamId).toBuilder()
+//                .creatorId(team.getCreatorId())
+//                .name(team.getName())
+//                .playersId(team.getPlayersId())
+//                .build();
+//
+//        teamRepository.save(updatedTeam);
+//    }
 }

@@ -29,7 +29,7 @@ public class PlayerStatistics {
     public List<PlayerStatistics> TeamMembersStatistics(){
         List<PlayerStatistics> list = new LinkedList<PlayerStatistics>();
         for (Player p:
-             player.getTeam().getPlayers_id()) {
+             player.getTeam().getPlayersId()) {
             list.add(new PlayerStatistics(p));
         }
 
