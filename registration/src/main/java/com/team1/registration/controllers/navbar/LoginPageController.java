@@ -8,8 +8,4 @@ import java.util.Map;
 
 @Controller
 public class LoginPageController {
-    @PostMapping("/login")
-    public String userLogin(User user, Map<String, Object> model){
-        return "navbar/home";
-    }
 }
