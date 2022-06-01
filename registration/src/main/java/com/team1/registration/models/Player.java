@@ -1,12 +1,12 @@
 package com.team1.registration.models;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.istack.NotNull;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -17,23 +17,30 @@ import javax.persistence.*;
 public class Player {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
+    @NotNull
     private String name;
 
-    /*
-        todo: @OneToMany ? @ManyToMany / @ManyToOne
-        how to connect teams and players
-     */
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "players")
+    @JsonIgnore
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<Team> teams;
 
-    @JoinColumn(name = "team_id")
-    @ManyToOne
-    private Team team;
-
-    @Column(nullable = false)
+    @NotNull
     private String balance;
 
     private Integer userId;
+
+    @Embedded
+    private PlayerStatistics playerStatistics = new PlayerStatistics();
+
+    public void addTeam(Team team) {
+        // todo: check team for existing and remove
+        this.teams.add(team);
+    }
 }

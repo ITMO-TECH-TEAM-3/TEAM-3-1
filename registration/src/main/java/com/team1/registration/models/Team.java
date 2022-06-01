@@ -1,37 +1,38 @@
 package com.team1.registration.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.sun.istack.NotNull;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
-@Table(name = "teams")
 @Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "teams")
 public class Team {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
+    @NotNull
     private String name;
 
-    // todo: understand where this field is assigned
-    @Column(nullable = false)
     private Integer creatorId;
 
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    @JoinTable(name = "player_team",
+            joinColumns = @JoinColumn(name = "team_id"),
+            inverseJoinColumns = @JoinColumn(name = "player_id")
+    )
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<Player> players;
 
-    /*
-        todo: @OneToMany ? @ManyToMany / @ManyToOne
-        how to connect teams and players
-     */
-    @OneToMany(mappedBy = "team")
-    private List<Player> playersId;
+    public void addPlayer(Player player) {
+        this.players.add(player);
+    }
 }

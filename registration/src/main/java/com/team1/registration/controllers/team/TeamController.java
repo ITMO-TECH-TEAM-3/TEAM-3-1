@@ -30,17 +30,4 @@ public class TeamController {
     public Team getTeam(@PathVariable Integer teamId) {
         return teamService.getTeamById(teamId);
     }
-
-//    @PutMapping("/{teamId}")
-//    @ResponseStatus(value = HttpStatus.NO_CONTENT, reason = "new player added")
-//    public void updateTeam(@PathVariable Integer teamId, @RequestBody Team team) {
-//        teamService.updateTeam(teamId, team);
-//    }
-
-    // todo: create team for player
-    /*
-        todo: add new player to team
-        when u add new player, u need to check tournament settings (team may have only N people)
-     */
-
 }
