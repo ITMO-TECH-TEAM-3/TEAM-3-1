@@ -11,15 +11,20 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse d-flex" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="#">Tournaments</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Organize</a>
-            </li>
-            <#if !isAuthorized>
+    <div class="collapse navbar-collapse" style="display: flex" id="navbarSupportedContent">
+        <div>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Tournaments</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Organize</a>
+                </li>
+            </ul>
+        </div>
+        <div style="margin-left: auto; padding-right: 20px; display: flex; flex-direction: row">
+        <#if !isAuthorized>
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="/login">
                         <div id="sign_in">
@@ -34,11 +39,11 @@
                         </div>
                     </a>
                 </li>
-            <#else>
-                <@l.logout />
-            </#if>
-        </ul>
-
-        <div class="navbar-text mr-3">${name}</div>
+                <#else>
+                    <@l.logout />
+                </#if>
+                <div class="navbar-text mr-3">${name}</div>
+            </ul>
+        </div>
     </div>
 </nav>
