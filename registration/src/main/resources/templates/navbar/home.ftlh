@@ -1,15 +1,18 @@
 <#import "../parts/common.ftlh" as c>
 <#import "../parts/login.ftlh" as l>
+<#import "../parts/success_register_alert.ftlh" as s>
 <@c.page>
     <div>
-        <@l.logout/>
-        <form method="post" enctype="multipart/form-data">
-            <input type="hidden" name="_csrf" value="${_csrf.token}">
-            <input type="text" name="text" placeholder="Enter text">
-            <input type="text" name="tag" placeholder="Enter tag">
-            <input type="file" name="file">
-            <button type="submit">Create</button>
-        </form>
+        <#if alert??>
+            <@s.success_alert/>
+        </#if>
+<#--        <form method="post" enctype="multipart/form-data">-->
+<#--            <input type="hidden" name="_csrf" value="${_csrf.token}">-->
+<#--            <input type="text" name="text" placeholder="Enter text">-->
+<#--            <input type="text" name="tag" placeholder="Enter tag">-->
+<#--            <input type="file" name="file">-->
+<#--            <button type="submit">Create</button>-->
+<#--        </form>-->
     </div>
 <#--    <div>List messages</div>-->
 <#--    <form method="get" action="/main">-->

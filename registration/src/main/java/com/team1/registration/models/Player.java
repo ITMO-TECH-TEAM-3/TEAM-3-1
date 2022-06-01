@@ -20,12 +20,12 @@ public class Player {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "teamId")
+    @Column(name = "team_id")
     private int teamId;
 
     @Column(name = "balance", nullable = false)
     private String balance;
 
-    @Column(name = "userId")
+    @Column(name = "user_id")
     private int userId;
 }

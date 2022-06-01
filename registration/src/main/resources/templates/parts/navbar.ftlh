@@ -1,5 +1,5 @@
 <#include "security.ftlh">
-
+<#import "../parts/login.ftlh" as l>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" style="padding-left: 10px" href="/">
         <div>
@@ -11,33 +11,34 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse d-flex" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/tournaments">Tournaments</a>
+                <a class="nav-link" href="#">Tournaments</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/organize">Organize</a>
+                <a class="nav-link" href="#">Organize</a>
             </li>
-            <#--            <#if isAdmin>-->
-            <li class="nav-item">
-                <a class="nav-link" href="/login">
-                    <div align="right">
-                        Sign in
-                    </div>
-                </a>
-            </li>
-            <li class="nav-item">
-                <div style="text-align:center">
-                    <a class="nav-link" href="/register">
-                        Sign up
+            <#if !isAuthorized>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">
+                        <div id="sign_in">
+                            Sign in
+                        </div>
                     </a>
-                </div>
-            </li>
-            <#--            </#if>-->
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/register">
+                        <div id="sign_up">
+                            Sign up
+                        </div>
+                    </a>
+                </li>
+            <#else>
+                <@l.logout />
+            </#if>
         </ul>
 
-        <#--        <div class="navbar-text mr-3">${name}</div>-->
-        <#--        <@l.logout />-->
+        <div class="navbar-text mr-3">${name}</div>
     </div>
 </nav>
