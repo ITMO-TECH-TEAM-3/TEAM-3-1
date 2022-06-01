@@ -5,8 +5,9 @@ import com.team1.registration.models.User;
 import com.team1.registration.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Collections;
 import java.util.Map;
@@ -22,7 +23,7 @@ public class RegisterUserPageController {
     }
 
     @PostMapping("/register")
-    public String registerUser(User user, Map<String, Object> model){
+    public String registerUser(User user, Map<String, Object> model, RedirectAttributes attr){
         User userFromDb = userRepository.findByUsername(user.getUsername());
         if(userFromDb != null){
             model.put("message", "User exists");
@@ -30,7 +31,8 @@ public class RegisterUserPageController {
         }
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.AUTHORIZED_USER));
+        attr.addFlashAttribute("alert", "Register is successful!");
         userRepository.save(user);
-        return "redirect:/navbar/login";
+        return "redirect:/";
     }
 }

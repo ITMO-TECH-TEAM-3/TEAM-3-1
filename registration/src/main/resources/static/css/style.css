@@ -1,8 +1,26 @@
 #sign_in, #sign_up{
-    display: flex;
-    align-items: flex-end;
+
 }
 body{
-    background-color: red;
-    color:red;
+    background: #fcfcfc;
+    padding-bottom: 3rem;
+    color: #5a5a5a;
 }
+.btn-success{
+    width: 150px !important;
+}
+/*#page-container {*/
+/*    position: relative;*/
+/*    min-height: 100vh;*/
+/*}*/
+
+/*#content-wrap {*/
+/*    padding-bottom: 2.5rem;    !* Footer height *!*/
+/*}*/
+
+/*#footer {*/
+/*    position: absolute;*/
+/*    bottom: 2.5rem;*/
+/*    width: 100%;*/
+/*    height: 2.5rem;            !* Footer height *!*/
+/*}*/

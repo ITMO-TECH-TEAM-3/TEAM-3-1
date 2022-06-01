@@ -4,9 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Kekiss.com</title>
-<#--        <link rel="stylesheet"-->
-<#--              type="text/css"-->
-<#--              href="../../static/css/style.css/"/>-->
+        <link rel="stylesheet" href="../../static/css/style.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- Bootstrap CSS -->
@@ -19,6 +17,7 @@
     <div class="container mt-5">
         <#nested>
     </div>
+<#--    <#include "footer.ftlh">-->
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
