@@ -50,7 +50,7 @@ public class PlayerController {
 
     @PostMapping("{playerId}/new-team")
     public void createTeam(@PathVariable Integer playerId, @RequestBody Team team) {
-        if (!Objects.equals(playerService.getPlayerById(playerId).getId(), playerId)) return;
+        if (!playerService.getAllPlayers().contains(playerService.getPlayerById(playerId))) return;
         //todo: add response status for the case of not finding the player
         team.setCreatorId(playerId);
         teamService.registerTeam(team);
