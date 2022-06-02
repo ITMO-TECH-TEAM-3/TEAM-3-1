@@ -1,31 +1,47 @@
 package com.team1.registration.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder(toBuilder = true)
 @Table(name = "players")
 public class Player {
 
     @Id
-    @GeneratedValue
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "name", nullable = false)
+    @NotNull
     private String name;
 
-    @Column(name = "team_id")
-    private int teamId;
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "players")
+    @JsonIgnore
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<Team> teams = new HashSet<>();
 
-    @Column(name = "balance", nullable = false)
+    @NotNull
     private String balance;
 
-    @Column(name = "user_id")
-    private int userId;
+    private Integer userId;
+
+    @Embedded
+    private PlayerStatistics playerStatistics = new PlayerStatistics();
+
+    public void addTeam(Team team) {
+        // todo: check team for existing and remove
+        this.teams.add(team);
+    }
 }

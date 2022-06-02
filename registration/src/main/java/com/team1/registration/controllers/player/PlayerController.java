@@ -1,22 +1,57 @@
 package com.team1.registration.controllers.player;
 
 import com.team1.registration.models.Player;
-import com.team1.registration.models.User;
+import com.team1.registration.models.Team;
 import com.team1.registration.services.PlayerService;
+import com.team1.registration.services.TeamService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
+@RestController
 @AllArgsConstructor
+@RequestMapping("/players")
+@Slf4j
 public class PlayerController {
     private PlayerService playerService;
+    private TeamService teamService;
 
-    @PostMapping("/players/new")
-    public void registerPlayer(Player player, Map<String, Object> model) {
-
+    @PostMapping
+    @ResponseStatus(value = HttpStatus.OK, reason = "player created")
+    public void registerPlayer(@RequestBody Player player) {
+        playerService.registerPlayer(player);
     }
 
+    @GetMapping
+    public List<Player> getAllPlayers() {
+        return playerService.getAllPlayers();
+    }
+
+    @GetMapping("/{playerId}")
+    public Player getPlayerById(@PathVariable Integer playerId) {
+        return playerService.getPlayerById(playerId);
+    }
+
+    // todo: change endpoint
+    @ResponseStatus(value = HttpStatus.NO_CONTENT, reason = "player added to new team")
+    @PostMapping("/{playerId}/join-team/{teamId}")
+    public void joinTeam(@PathVariable Integer playerId, @PathVariable Integer teamId) {
+        var player = playerService.getPlayerById(playerId);
+        var team = teamService.getTeamById(teamId);
+        team.addPlayer(player);
+        teamService.updateTeam(team);
+        player.addTeam(team);
+        playerService.updatePlayer(player);
+    }
+
+    @PostMapping("{playerId}/new-team")
+    public void createTeam(@PathVariable Integer playerId, @RequestBody Team team) {
+        // todo: check for player correctness
+        team.setCreatorId(playerId);
+        teamService.registerTeam(team);
+        this.joinTeam(playerId, team.getId());
+    }
 }
