@@ -32,8 +32,4 @@ public class Team {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Set<Player> players = new HashSet<>();
-
-    public void addPlayer(Player player) {
-        this.players.add(player);
-    }
 }

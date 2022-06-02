@@ -1,5 +1,6 @@
 package com.team1.registration.services;
 
+import com.team1.registration.models.Player;
 import com.team1.registration.models.Team;
 import com.team1.registration.repositories.TeamRepository;
 import lombok.AllArgsConstructor;
@@ -32,5 +33,9 @@ public class TeamService {
     public void updateTeam(Team team) {
         log.info(String.format("Updated to '%s'", team));
         teamRepository.save(team);
+    }
+
+    public void addPlayerToTeam(Team team, Player player) {
+        team.getPlayers().add(player);
     }
 }

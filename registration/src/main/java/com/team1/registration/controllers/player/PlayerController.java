@@ -41,9 +41,9 @@ public class PlayerController {
     public void joinTeam(@PathVariable Integer playerId, @PathVariable Integer teamId) {
         var player = playerService.getPlayerById(playerId);
         var team = teamService.getTeamById(teamId);
-        team.addPlayer(player);
+        teamService.addPlayerToTeam(team, player);
         teamService.updateTeam(team);
-        player.addTeam(team);
+        playerService.addTeamToPlayer(player, team);
         playerService.updatePlayer(player);
     }
 

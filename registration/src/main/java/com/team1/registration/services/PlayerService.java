@@ -35,4 +35,8 @@ public class PlayerService {
         log.info(String.format("Updated to '%s'", player));
         playerRepository.save(player);
     }
+
+    public void addTeamToPlayer(Player player, Team team){
+        player.getTeams().add(team);
+    }
 }

@@ -37,9 +37,4 @@ public class Player {
 
     @Embedded
     private PlayerStatistics playerStatistics = new PlayerStatistics();
-
-    public void addTeam(Team team) {
-        // todo: check team for existing and remove
-        this.teams.add(team);
-    }
 }
