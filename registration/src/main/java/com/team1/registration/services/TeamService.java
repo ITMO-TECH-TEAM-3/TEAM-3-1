@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @AllArgsConstructor
@@ -25,8 +26,7 @@ public class TeamService {
     }
 
     public Team getTeamById(Integer teamId) {
-        // todo: check team for existing with orElse(() -> throw ...)
-        return teamRepository.findById(teamId).orElse(null);
+        return teamRepository.findById(teamId).orElseThrow(() -> new NoSuchElementException(String.valueOf(teamId)));
     }
 
     public void updateTeam(Team team) {

@@ -9,6 +9,7 @@ import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @AllArgsConstructor
@@ -27,8 +28,7 @@ public class PlayerService {
     }
 
     public Player getPlayerById(Integer playerId) {
-        // todo: check player for existing with orElse(() -> throw ...)
-        return playerRepository.findById(playerId).orElse(null);
+        return playerRepository.findById(playerId).orElseThrow(() -> new NoSuchElementException(String.valueOf(playerId)));
     }
 
     public void updatePlayer(Player player) {
