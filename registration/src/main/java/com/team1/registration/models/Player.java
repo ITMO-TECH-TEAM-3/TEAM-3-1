@@ -16,7 +16,6 @@ import java.util.Set;
 @Builder(toBuilder = true)
 @Table(name = "players")
 public class Player {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -32,8 +31,7 @@ public class Player {
     @ToString.Exclude
     private Set<Team> teams = new HashSet<>();
 
-    @NotNull
-    private String balance;
+    private Double balance = 0d;
 
     private Integer userId;
 
