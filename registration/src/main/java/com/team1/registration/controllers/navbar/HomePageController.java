@@ -16,19 +16,20 @@ public class HomePageController {
     }
 
     @GetMapping("/register")
-    public String register(){
+    public String register() {
         return "navbar/register";
     }
 
     @GetMapping("/login")
-    public String login(HttpServletRequest req, Map<String, Object> model){
+    public String login(HttpServletRequest req, Map<String, Object> model) {
         var y = req.getParameter("error");
         model.put("error", y);
         return "navbar/login";
     }
 
     @GetMapping("tournaments")
-    public String tournaments(){ // todo: fix name
+    public String tournaments() {
+        // todo: fix name
         return "tournaments";
     }
 }

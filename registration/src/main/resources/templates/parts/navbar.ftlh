@@ -23,7 +23,7 @@
             </ul>
         </div>
         <div style="margin-left: auto; padding-right: 20px; display: flex; flex-direction: row">
-        <#if !isAuthorized>
+            <#if !isAuthorized>
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="/login">
