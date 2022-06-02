@@ -47,7 +47,7 @@
     <div style="margin-right:10px">
         <form action="/logout" method="post">
             <input type="hidden" name="_csrf" value="${_csrf.token}">
-            <input type="submit" value="Log Out"/>
+            <input class="btn btn-light" type="submit" value="Log Out"/>
         </form>
     </div>
 </#macro>
