@@ -36,6 +36,10 @@ public class PlayerService {
         playerRepository.save(player);
     }
 
+    public boolean containsPlayer(Integer playerId) {
+        return playerRepository.existsById(playerId);
+    }
+
     public void addTeamToPlayer(Player player, Team team){
         player.getTeams().add(team);
     }

@@ -37,7 +37,7 @@ public class PlayerController {
     }
 
     // todo: change endpoint
-    @ResponseStatus(value = HttpStatus.NO_CONTENT, reason = "player added to new team")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT, reason = "player joined to team")
     @PostMapping("/{playerId}/join-team/{teamId}")
     public void joinTeam(@PathVariable Integer playerId, @PathVariable Integer teamId) {
         var player = playerService.getPlayerById(playerId);
@@ -48,9 +48,12 @@ public class PlayerController {
         playerService.updatePlayer(player);
     }
 
+    @ResponseStatus(value = HttpStatus.NO_CONTENT, reason = "new team created")
     @PostMapping("{playerId}/new-team")
     public void createTeam(@PathVariable Integer playerId, @RequestBody Team team) {
-        if (!playerService.getAllPlayers().contains(playerService.getPlayerById(playerId))) return;
+        if (!playerService.containsPlayer(playerId)) {
+            return;
+        }
         //todo: add response status for the case of not finding the player
         team.setCreatorId(playerId);
         teamService.registerTeam(team);
