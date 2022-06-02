@@ -37,16 +37,21 @@ public class PlayerController {
 
     // todo: change endpoint
     @ResponseStatus(value = HttpStatus.NO_CONTENT, reason = "player added to new team")
-    @PostMapping("/{playerId}/team/{teamId}")
+    @PostMapping("/{playerId}/join-team/{teamId}")
     public void addTeam(@PathVariable Integer playerId, @PathVariable Integer teamId) {
         var player = playerService.getPlayerById(playerId);
         var team = teamService.getTeamById(teamId);
-        if (team.getCreatorId() == null) {
-            team.setCreatorId(playerId);
-        }
         team.addPlayer(player);
         teamService.updateTeam(team);
         player.addTeam(team);
         playerService.updatePlayer(player);
+    }
+
+    @PostMapping("{playerId}/new-team")
+    public void createTeam(@PathVariable Integer playerId, @RequestBody Team team) {
+        // todo: check for player correctness
+        team.setCreatorId(playerId);
+        teamService.registerTeam(team);
+        this.addTeam(playerId, team.getId());
     }
 }

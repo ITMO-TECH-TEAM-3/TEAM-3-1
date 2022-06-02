@@ -4,6 +4,7 @@ import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -30,7 +31,7 @@ public class Team {
     )
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Set<Player> players;
+    private Set<Player> players = new HashSet<>();
 
     public void addPlayer(Player player) {
         this.players.add(player);

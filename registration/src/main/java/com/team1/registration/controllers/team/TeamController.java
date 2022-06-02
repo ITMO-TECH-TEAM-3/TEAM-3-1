@@ -1,11 +1,12 @@
 package com.team1.registration.controllers.team;
 
-import com.team1.registration.models.Player;
 import com.team1.registration.models.Team;
 import com.team1.registration.services.TeamService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -14,12 +15,6 @@ import java.util.List;
 @AllArgsConstructor
 public class TeamController {
     private TeamService teamService;
-
-    @PostMapping
-    @ResponseStatus(value = HttpStatus.OK, reason = "created team")
-    public void registerTeam(@RequestBody Team team) {
-        teamService.registerTeam(team);
-    }
 
     @GetMapping
     public List<Team> getAllTeams() {

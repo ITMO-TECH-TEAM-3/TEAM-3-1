@@ -6,6 +6,7 @@ import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -29,7 +30,7 @@ public class Player {
     @JsonIgnore
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Set<Team> teams;
+    private Set<Team> teams = new HashSet<>();
 
     @NotNull
     private String balance;
