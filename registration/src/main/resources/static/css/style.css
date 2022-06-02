@@ -1,14 +1,19 @@
-#sign_in, #sign_up{
-
-}
-body{
-    background: #fcfcfc;
-    padding-bottom: 3rem;
-    color: #5a5a5a;
-}
 #username, #password{
     width: 250px;
 }
 #submit{
     width: 150px;
+}
+.navbar{
+    background-color: rgba(0,0,0,0.2) !important;
+}
+.nav-link, .navbar-text{
+    color: white !important;
+}
+body {
+    font-family: "Source Sans Pro",Arial,Helvetica,sans-serif;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #D8D8D8;
+    background-color: #272A33;
 }
