@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @AllArgsConstructor
@@ -49,7 +50,8 @@ public class PlayerController {
 
     @PostMapping("{playerId}/new-team")
     public void createTeam(@PathVariable Integer playerId, @RequestBody Team team) {
-        // todo: check for player correctness
+        if (!Objects.equals(playerService.getPlayerById(playerId).getId(), playerId)) return;
+        //todo: add response status for the case of not finding the player
         team.setCreatorId(playerId);
         teamService.registerTeam(team);
         this.joinTeam(playerId, team.getId());
