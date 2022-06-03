@@ -1,18 +1,45 @@
 <#macro login path>
-    <form action= "${path}" method="post">
-        <div><label> User Name : <input type="text" name="username" required class="form-control" /> </label></div><br>
-        <div><label> Password: <input type="password" name="password" required class="form-control" /> </label></div><br>
+    <form action="${path}" method="post">
+        <div><label for="username"> User Name</label>
+            <input id="username" type="text" name="username" class="form-control"/>
+        </div>
+        <br>
+        <div><label for="password"> Password</label>
+            <input id="password" type="password" name="password" class="form-control"/>
+        </div>
+        <br>
         <input type="hidden" name="_csrf" value="${_csrf.token}">
-        <div><input type="submit" class="btn btn-info" value="Sign in"/></div>
+        <div><input id="submit" type="submit" class="btn btn-info" value="Sign in"/></div>
     </form>
 </#macro>
 
 <#macro register path>
-    <form action= "${path}" method="post">
-        <div><label> User Name : <input type="text" name="username" required class="form-control" /> </label></div><br>
-        <div><label> Password: <input type="password" name="password" required class="form-control" /> </label></div><br>
+    <form action="${path}" method="post">
+        <label for="username"> User Name </label>
+        <input id="username" type="text" name="username" class="form-control
+                ${(usernameError??)?string('is-invalid', '')}"
+               value="<#if user??>${user.username}</#if>">
+        <div class="invalid-feedback">
+            <#if usernameError??>
+                ${usernameError}
+            </#if>
+        </div>
+        <br>
+        <div>
+            <label for="password">
+                Password
+            </label>
+            <input id="password" type="password" name="password" class="form-control
+                ${(passwordError??)?string('is-invalid', '')}">
+            <div class="invalid-feedback">
+                <#if passwordError??>
+                    ${passwordError}
+                </#if>
+            </div>
+        </div>
+        <br>
         <input type="hidden" name="_csrf" value="${_csrf.token}">
-        <div><input type="submit" class="btn btn-success" value="Sign Up"/></div>
+        <div><input id="submit" type="submit" class="btn btn-success" value="Sign Up"/></div>
     </form>
 </#macro>
 
