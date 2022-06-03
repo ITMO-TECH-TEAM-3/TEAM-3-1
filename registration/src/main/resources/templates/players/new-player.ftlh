@@ -1,12 +1,14 @@
 <#import "../parts/common.ftlh" as c>
 <#include "../parts/security.ftlh">
+
+<#assign form_path="/players/new-player">
+
 <@c.page>
-    <form action="/profile/top-up" method="post">
+    <form action="${form_path}" method="post">
         <input type="hidden" name="_csrf" value="${_csrf.token}">
         <div class="form-group">
-            <#--            checks for lower than zero-->
-            <label for="amount">Replenishment amount ($)</label>
-            <input name="amount" class="form-control" id="amount" placeholder="100">
+            <label for="name">Player name</label>
+            <input name="name" class="form-control" id="name" placeholder="aboba">
             <input type="hidden" name="userId" value="${userId}">
         </div>
         <input class="btn btn-primary" type="submit" value="Submit" style="margin-top:5px">

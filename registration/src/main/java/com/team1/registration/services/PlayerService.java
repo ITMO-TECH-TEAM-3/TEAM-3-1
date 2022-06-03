@@ -16,6 +16,7 @@ import java.util.NoSuchElementException;
 @Slf4j
 public class PlayerService {
     private PlayerRepository playerRepository;
+    private TeamService teamService;
 
     public void registerPlayer(Player player) {
         //todo: check data for correctness
@@ -28,7 +29,8 @@ public class PlayerService {
     }
 
     public Player getPlayerById(Integer playerId) {
-        return playerRepository.findById(playerId).orElseThrow(() -> new NoSuchElementException(String.valueOf(playerId)));
+        return playerRepository.findById(playerId)
+                .orElseThrow(() -> new NoSuchElementException(playerId.toString()));
     }
 
     public void updatePlayer(Player player) {
@@ -40,8 +42,15 @@ public class PlayerService {
         return playerRepository.existsById(playerId);
     }
 
-    public void addTeamToPlayer(Player player, Team team){
+    public void addTeamToPlayer(Player player, Team team) {
         player.getTeams().add(team);
+    }
+
+    public void joinTeam(Player player, Team team) {
+        teamService.addPlayerToTeam(team, player);
+        teamService.updateTeam(team);
+        this.addTeamToPlayer(player, team);
+        this.updatePlayer(player);
     }
 
     public List<Player> getPlayersByUserId(Integer userId) {

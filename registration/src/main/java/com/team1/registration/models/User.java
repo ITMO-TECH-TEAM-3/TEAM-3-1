@@ -12,8 +12,7 @@ import java.util.Set;
 
 @Data
 @Entity
-// Users table name is not recommended
-@Table(name = "usr")
+@Table(name = "users")
 public class User implements UserDetails {
 
     @Override
@@ -63,10 +62,6 @@ public class User implements UserDetails {
     private String password;
 
     private Double balance = 0d;
-
-//    @Transient
-//    @NotBlank(message = "Enter password confirmation")
-//    private String passwordConfirmation;
 
     private boolean active;
 

@@ -45,5 +45,6 @@ public class UserService implements UserDetailsService {
     public void updateBalance(User user, Double amount) {
         // todo: checks
         user.setBalance(user.getBalance() + amount);
+        userRepository.save(user);
     }
 }

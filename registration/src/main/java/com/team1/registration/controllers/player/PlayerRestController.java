@@ -41,10 +41,7 @@ public class PlayerRestController {
     public void joinTeam(@PathVariable Integer playerId, @PathVariable Integer teamId) {
         var player = playerService.getPlayerById(playerId);
         var team = teamService.getTeamById(teamId);
-        teamService.addPlayerToTeam(team, player);
-        teamService.updateTeam(team);
-        playerService.addTeamToPlayer(player, team);
-        playerService.updatePlayer(player);
+        playerService.joinTeam(player, team);
     }
 
     @ResponseStatus(value = HttpStatus.NO_CONTENT, reason = "new team created")
