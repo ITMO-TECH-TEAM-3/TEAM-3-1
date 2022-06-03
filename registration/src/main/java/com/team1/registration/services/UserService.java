@@ -16,7 +16,6 @@ import java.util.Collections;
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepo;
-
     private final PasswordEncoder passwordEncoder;
 
     @Autowired

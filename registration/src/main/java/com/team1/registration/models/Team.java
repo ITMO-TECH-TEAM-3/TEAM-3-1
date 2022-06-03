@@ -1,7 +1,5 @@
 package com.team1.registration.models;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import lombok.*;
 
@@ -10,12 +8,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Builder(toBuilder = true)
-@Table(name = "players")
-public class Player {
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "teams")
+public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -23,18 +21,15 @@ public class Player {
     @NotNull
     private String name;
 
+    private Integer creatorId;
+
     @ManyToMany(fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL,
-            mappedBy = "players")
-    @JsonIgnore
+            cascade = CascadeType.ALL)
+    @JoinTable(name = "player_team",
+            joinColumns = @JoinColumn(name = "team_id"),
+            inverseJoinColumns = @JoinColumn(name = "player_id")
+    )
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Set<Team> teams = new HashSet<>();
-
-    private Double balance = 0d;
-
-    private Integer userId;
-
-    @Embedded
-    private PlayerStatistics playerStatistics = new PlayerStatistics();
+    private Set<Player> players = new HashSet<>();
 }
