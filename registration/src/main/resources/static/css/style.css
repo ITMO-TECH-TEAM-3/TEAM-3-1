@@ -1,26 +1,19 @@
-#sign_in, #sign_up{
-
+#username, #password{
+    width: 250px;
 }
-body{
-    background: #fcfcfc;
-    padding-bottom: 3rem;
-    color: #5a5a5a;
+#submit{
+    width: 150px;
 }
-.btn-success{
-    width: 150px !important;
+.navbar{
+    background-color: rgba(0,0,0,0.2) !important;
 }
-/*#page-container {*/
-/*    position: relative;*/
-/*    min-height: 100vh;*/
-/*}*/
-
-/*#content-wrap {*/
-/*    padding-bottom: 2.5rem;    !* Footer height *!*/
-/*}*/
-
-/*#footer {*/
-/*    position: absolute;*/
-/*    bottom: 2.5rem;*/
-/*    width: 100%;*/
-/*    height: 2.5rem;            !* Footer height *!*/
-/*}*/
+.nav-link, .navbar-text{
+    color: white !important;
+}
+body {
+    font-family: "Source Sans Pro",Arial,Helvetica,sans-serif;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #D8D8D8;
+    background-color: #272A33;
+}

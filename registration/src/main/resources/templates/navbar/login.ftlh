@@ -4,7 +4,6 @@
 <@c.page>
     <@l.login "/login"/><br>
     <#if error??>
-        <@i.incorrect_alert/>
+        <@i.incorrect_alert "Invalid user or password"/>
     </#if>
-    <a href="/register">Register</a>
 </@c.page>
