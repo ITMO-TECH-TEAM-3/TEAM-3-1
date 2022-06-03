@@ -9,11 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @Slf4j
@@ -41,19 +37,16 @@ public class PlayerController {
         return "redirect:/";
     }
 
-    //fixme: do it without @PathVariable
     @GetMapping("all")
-    public String getAllUserPlayers(Integer userId, Model model) {
-        log.info(userId.toString());
-        model.addAttribute("userId", userId);
+    public String getAllUserPlayers( Integer userId, Model model) {
         var players = playerService.getPlayersByUserId(userId);
         model.addAttribute("players", players);
-        return "players/getAllPlayers";
+        return "players/all-players";
     }
 
     @GetMapping("new-team")
     public String createTeamForm() {
-        return "teams/new-team";
+        return "players/new-team";
     }
 
     //todo: how to pass selected player?

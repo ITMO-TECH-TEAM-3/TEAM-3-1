@@ -3,6 +3,11 @@
 
 <@c.page>
     <#list players as p>
-        ${p} <br>
+        ${p}
+        <ul>
+            <#list p.teams as t>
+                <li>${t}</li>
+            </#list>
+        </ul>
     </#list>
 </@c.page>
