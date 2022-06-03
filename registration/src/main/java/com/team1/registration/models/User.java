@@ -53,22 +53,21 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "username")
     @NotBlank(message = "Enter your name")
-    @Length(max=256, message = "Name is too long")
+    @Length(max = 256, message = "Name is too long")
     private String username;
 
 
     @NotBlank(message = "Enter password")
-    @Length(max=256, message = "Password is too long")
-    @Column(name = "password")
+    @Length(max = 256, message = "Password is too long")
     private String password;
+
+    private Double balance = 0d;
 
 //    @Transient
 //    @NotBlank(message = "Enter password confirmation")
 //    private String passwordConfirmation;
 
-    @Column(name = "active")
     private boolean active;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)

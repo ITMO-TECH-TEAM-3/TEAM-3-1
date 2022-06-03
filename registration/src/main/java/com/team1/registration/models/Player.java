@@ -31,8 +31,6 @@ public class Player {
     @ToString.Exclude
     private Set<Team> teams = new HashSet<>();
 
-    private Double balance = 0d;
-
     private Integer userId;
 
     @Embedded
