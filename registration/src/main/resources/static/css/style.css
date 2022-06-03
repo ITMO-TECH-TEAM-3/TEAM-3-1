@@ -6,9 +6,21 @@ body{
     padding-bottom: 3rem;
     color: #5a5a5a;
 }
-#username, #password{
-    width: 250px;
+.btn-success{
+    width: 150px !important;
 }
-#submit{
-    width: 150px;
-}
+/*#page-container {*/
+/*    position: relative;*/
+/*    min-height: 100vh;*/
+/*}*/
+
+/*#content-wrap {*/
+/*    padding-bottom: 2.5rem;    !* Footer height *!*/
+/*}*/
+
+/*#footer {*/
+/*    position: absolute;*/
+/*    bottom: 2.5rem;*/
+/*    width: 100%;*/
+/*    height: 2.5rem;            !* Footer height *!*/
+/*}*/

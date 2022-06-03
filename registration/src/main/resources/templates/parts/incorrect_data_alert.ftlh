@@ -1,5 +1,5 @@
-<#macro incorrect_alert message>
+<#macro incorrect_alert>
     <div class="alert alert-danger" role="alert">
-        ${message}
+        Invalid user or password
     </div>
 </#macro>

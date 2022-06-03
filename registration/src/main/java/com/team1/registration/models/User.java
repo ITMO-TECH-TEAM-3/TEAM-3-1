@@ -1,12 +1,10 @@
 package com.team1.registration.models;
 
 import lombok.Data;
-import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.util.Collection;
 import java.util.Set;
 
@@ -52,22 +50,10 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     @Column(name = "username")
-    @NotBlank(message = "Enter your name")
-    @Length(max=256, message = "Name is too long")
     private String username;
-
-
-    @NotBlank(message = "Enter password")
-    @Length(max=256, message = "Password is too long")
     @Column(name = "password")
     private String password;
-
-//    @Transient
-//    @NotBlank(message = "Enter password confirmation")
-//    private String passwordConfirmation;
-
     @Column(name = "active")
     private boolean active;
 
