@@ -25,7 +25,7 @@ public class ProfileController {
     }
 
     @GetMapping("/create-player")
-    public String playerForm() {
+    public String createPlayerForm() {
         log.info("Clicked to create player form");
         return "profile/create-player";
     }
@@ -37,7 +37,7 @@ public class ProfileController {
     }
 
     @GetMapping("/make-bet")
-    public String betForm() {
+    public String makeBetForm() {
         log.info("Clicked to make a bet");
         return "profile/make-bet";
     }

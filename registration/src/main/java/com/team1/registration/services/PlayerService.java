@@ -43,4 +43,9 @@ public class PlayerService {
     public void addTeamToPlayer(Player player, Team team){
         player.getTeams().add(team);
     }
+
+    public List<Player> getPlayersByUserId(Integer userId) {
+        log.info("Getting all players by usedId '{}'", userId);
+        return playerRepository.getPlayersByUserId(userId);
+    }
 }
