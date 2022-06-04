@@ -30,9 +30,9 @@ public class PlayerRestController {
         return playerService.getAllPlayers();
     }
 
-    @GetMapping("/{playerId}")
-    public Player getPlayerById(@PathVariable Integer playerId) {
-        return playerService.getPlayerById(playerId);
+    @GetMapping("all")
+    public List<Player> getAllPlayersById(Integer userId) {
+        return playerService.getPlayersByUserId(userId);
     }
 
     // todo: change endpoint

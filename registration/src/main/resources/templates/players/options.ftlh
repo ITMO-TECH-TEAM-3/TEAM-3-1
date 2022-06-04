@@ -2,8 +2,8 @@
 <#include "../parts/security.ftlh">
 
 <#assign create_player_path="/players/new-player">
-<#assign get_all_players_path="/players/all">
 <#assign create_team_path="/players/new-team">
+<#assign get_all_players_path="/players/all">
 
 <@c.page>
     <div class="row">

@@ -38,7 +38,7 @@ public class PlayerController {
     }
 
     @GetMapping("all")
-    public String getAllUserPlayers( Integer userId, Model model) {
+    public String getAllUserPlayers(Integer userId, Model model) {
         var players = playerService.getPlayersByUserId(userId);
         model.addAttribute("players", players);
         return "players/all-players";

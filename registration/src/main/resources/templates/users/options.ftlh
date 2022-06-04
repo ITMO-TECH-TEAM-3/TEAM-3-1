@@ -4,6 +4,7 @@
 <#assign players_path="/players">
 <#assign teams_path="/teams">
 
+<#--    to do with <#list> -->
 <@c.page>
     <div class="row">
         <div class="col">
