@@ -23,7 +23,7 @@ services:
     container_name: tests
     image: tests
     volumes:
-      - C:/Users/sergo/PycharmProjects/IS-TECH-TESTS/code:/tmp/code
+      - ../../../../python_tests/code :/tmp/code
     entrypoint: /bin/bash /tmp/code/start_tests.sh
     depends_on:
       postgres:
