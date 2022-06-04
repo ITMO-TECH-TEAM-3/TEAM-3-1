@@ -22,6 +22,8 @@ services:
       net: null
     container_name: tests
     image: tests
+    build:
+      ../../../../python_tests/code
     volumes:
       - ../../../../python_tests/code :/tmp/code
     entrypoint: /bin/bash /tmp/code/start_tests.sh
