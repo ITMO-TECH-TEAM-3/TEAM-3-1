@@ -23,7 +23,7 @@ services:
     container_name: tests
     image: tests
     build:
-      ../../../../python_tests/code
+     context:  ../../../../python_tests/code
     volumes:
       - ../../../../python_tests/code :/tmp/code
     entrypoint: /bin/bash /tmp/code/start_tests.sh
