@@ -15,7 +15,6 @@ import java.util.Map;
 
 @Controller
 public class RegisterUserPageController {
-
     private final UserService userService;
 
     @Autowired

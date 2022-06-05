@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Data
 @Entity
@@ -15,13 +16,12 @@ import java.util.Set;
 @Table(name = "teams")
 public class Team {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private UUID id = UUID.randomUUID();
 
     @NotNull
     private String name;
 
-    private Integer creatorId;
+    private UUID creatorId;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
