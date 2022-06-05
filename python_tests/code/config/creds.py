@@ -1,0 +1,7 @@
+APP_HOST = '0.0.0.0'
+APP_PORT = '8080'
+APP_SERVICE = 'app'
+# APP_SERVICE = '127.0.0.1'
+#MYSQL_HOST = 'mysql'
+#MYSQL_PORT = '3306'
+MYSQL_DB = 'registration'

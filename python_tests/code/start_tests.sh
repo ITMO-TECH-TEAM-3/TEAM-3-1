@@ -1,2 +1,2 @@
 #!/bin/bash
-pytest -s -v -l -n 3 /tmp/code/test_ui.py
+pytest -s -v -l /tmp/code/ui/tests/test_ui.py

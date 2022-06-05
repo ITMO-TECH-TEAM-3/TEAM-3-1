@@ -13,8 +13,6 @@
     <body>
     <#include "navbar.ftlh">
     <link rel="stylesheet" href="../../static/css/style.css">
-    <img class="image" src="https://assets.challonge.com/assets/community_default_banners/default-cover-3-4f62f5489d5919ce570449a9514ee1bb47f0f836db8201422aeedb85153c17cb.svg"
-    style="width: 100%">
     <div class="container mt-5">
         <#nested>
     </div>
