@@ -25,7 +25,7 @@ services:
     build:
       context: ../python_tests/code
     volumes:
-      - ../python_tests/code :/tmp/code
+      - ../python_tests/code:/tmp/code
     entrypoint: /bin/bash /tmp/code/start_tests.sh
     depends_on:
       postgres:
@@ -62,7 +62,7 @@ services:
     volumes:
       - ../python_tests/code/config:/etc/browser
       - /var/run/docker.sock:/var/run/docker.sock
-    command: [ "-conf", "/etc/browser/browsers.json", "-container-network", "net"]
+    command: [ "-conf", "/etc/browser/browsers.json", "-container-network", "net" ]
 
 networks:
   net:

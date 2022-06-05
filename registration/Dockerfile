@@ -7,3 +7,5 @@ FROM openjdk:16
 COPY --from=build /usr/src/app/target/registration-0.0.1-SNAPSHOT.jar /usr/app/registration-0.0.1-SNAPSHOT.jar
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","/usr/app/registration-0.0.1-SNAPSHOT.jar"]
+
+FROM selenoid/chrome:98.0
