@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
@@ -31,14 +32,14 @@ public class PlayerRestController {
     }
 
     @GetMapping("all")
-    public List<Player> getAllPlayersById(Integer userId) {
+    public List<Player> getAllPlayersById(UUID userId) {
         return playerService.getPlayersByUserId(userId);
     }
 
     // todo: change endpoint
     @ResponseStatus(value = HttpStatus.NO_CONTENT, reason = "player joined to team")
     @PostMapping("/{playerId}/join-team/{teamId}")
-    public void joinTeam(@PathVariable Integer playerId, @PathVariable Integer teamId) {
+    public void joinTeam(@PathVariable UUID playerId, @PathVariable UUID teamId) {
         var player = playerService.getPlayerById(playerId);
         var team = teamService.getTeamById(teamId);
         playerService.joinTeam(player, team);
@@ -46,7 +47,7 @@ public class PlayerRestController {
 
     @ResponseStatus(value = HttpStatus.NO_CONTENT, reason = "new team created")
     @PostMapping("{playerId}/new-team")
-    public void createTeam(@PathVariable Integer playerId, @RequestBody Team team) {
+    public void createTeam(@PathVariable UUID playerId, @RequestBody Team team) {
         if (!playerService.containsPlayer(playerId)) {
             return;
         }

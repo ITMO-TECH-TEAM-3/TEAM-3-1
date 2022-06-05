@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @Controller
 @Slf4j
 @AllArgsConstructor
@@ -38,7 +40,7 @@ public class PlayerController {
     }
 
     @GetMapping("all")
-    public String getAllUserPlayers(Integer userId, Model model) {
+    public String getAllUserPlayers(@RequestParam UUID userId, Model model) {
         var players = playerService.getPlayersByUserId(userId);
         model.addAttribute("players", players);
         return "players/all-players";

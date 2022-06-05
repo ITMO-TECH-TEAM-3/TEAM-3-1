@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -26,8 +27,9 @@ public class TeamService {
         return teamRepository.findAll();
     }
 
-    public Team getTeamById(Integer teamId) {
-        return teamRepository.findById(teamId).orElseThrow(() -> new NoSuchElementException(String.valueOf(teamId)));
+    public Team getTeamById(UUID teamId) {
+        return teamRepository.findById(teamId)
+                .orElseThrow(() -> new NoSuchElementException(teamId.toString()));
     }
 
     public void updateTeam(Team team) {

@@ -10,6 +10,7 @@
         <div class="form-group">
             <label for="name">Team name</label>
             <input name="name" class="form-control" id="name" placeholder="aboba team">
+            <#--            replace userId-->
             <input type="hidden" name="playerId" value="${userId}">
         </div>
         <input class="btn btn-primary" type="submit" value="Submit" style="margin-top:5px">

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -28,7 +29,7 @@ public class PlayerService {
         return playerRepository.findAll();
     }
 
-    public Player getPlayerById(Integer playerId) {
+    public Player getPlayerById(UUID playerId) {
         return playerRepository.findById(playerId)
                 .orElseThrow(() -> new NoSuchElementException(playerId.toString()));
     }
@@ -38,7 +39,7 @@ public class PlayerService {
         playerRepository.save(player);
     }
 
-    public boolean containsPlayer(Integer playerId) {
+    public boolean containsPlayer(UUID playerId) {
         return playerRepository.existsById(playerId);
     }
 
@@ -53,7 +54,7 @@ public class PlayerService {
         this.updatePlayer(player);
     }
 
-    public List<Player> getPlayersByUserId(Integer userId) {
+    public List<Player> getPlayersByUserId(UUID userId) {
         log.info("Getting all players by usedId '{}'", userId);
         return playerRepository.getPlayersByUserId(userId);
     }

@@ -7,6 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/profile")
@@ -28,7 +31,7 @@ public class ProfileController {
     }
 
     @PostMapping("/top-up")
-    public String topUpAccount(Integer userId, Double amount) {
+    public String topUpAccount(@RequestParam UUID userId, @RequestParam Double amount) {
         // todo: checks for amount lower than zero? |  may be checks should be in html code?
         var user = userService.getUserById(userId);
         log.info("'{}' balance '{}' before replenishment", user.getUsername(), user.getBalance());

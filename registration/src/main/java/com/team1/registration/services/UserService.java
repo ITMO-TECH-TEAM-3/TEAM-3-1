@@ -4,7 +4,6 @@ import com.team1.registration.models.Role;
 import com.team1.registration.models.User;
 import com.team1.registration.repositories.UserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,6 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.NoSuchElementException;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -37,9 +38,9 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
-    public User getUserById(Integer userId) {
-        // todo: orElseThrow()
-        return userRepository.findById(userId).orElse(null);
+    public User getUserById(UUID userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new NoSuchElementException(userId.toString()));
     }
 
     public void updateBalance(User user, Double amount) {

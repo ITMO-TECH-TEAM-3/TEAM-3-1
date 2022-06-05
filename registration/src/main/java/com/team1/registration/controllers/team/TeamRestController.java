@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/teams-rest")
@@ -22,7 +23,7 @@ public class TeamRestController {
     }
 
     @GetMapping("/{teamId}")
-    public Team getTeam(@PathVariable Integer teamId) {
+    public Team getTeam(@PathVariable UUID teamId) {
         return teamService.getTeamById(teamId);
     }
 }

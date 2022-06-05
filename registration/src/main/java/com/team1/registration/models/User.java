@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Collection;
 import java.util.Set;
+import java.util.UUID;
 
 @Data
 @Entity
@@ -49,8 +50,7 @@ public class User implements UserDetails {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private UUID id = UUID.randomUUID();
 
     @NotBlank(message = "Enter your name")
     @Length(max = 256, message = "Name is too long")

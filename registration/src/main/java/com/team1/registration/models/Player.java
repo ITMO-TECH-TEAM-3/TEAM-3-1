@@ -8,6 +8,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -17,8 +18,7 @@ import java.util.Set;
 @Table(name = "players")
 public class Player {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private UUID id = UUID.randomUUID();
 
     @NotNull
     private String name;
@@ -31,7 +31,7 @@ public class Player {
     @ToString.Exclude
     private Set<Team> teams = new HashSet<>();
 
-    private Integer userId;
+    private UUID userId;
 
     @Embedded
     private PlayerStatistics playerStatistics = new PlayerStatistics();
