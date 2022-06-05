@@ -24,18 +24,13 @@ public class RegisterUserPageController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@Valid User user,
-                               BindingResult bindingResult,
-                               Model model,
-                               RedirectAttributes attr) {
+    public String registerUser(@Valid User user, BindingResult bindingResult, Model model, RedirectAttributes attr) {
         if (bindingResult.hasErrors()) {
-
             Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
             model.mergeAttributes(errorsMap);
             model.addAttribute("user", user);
             return "navbar/register";
         } else {
-
             if (!userService.registerUser(user)) {
                 model.addAttribute("message", "User exists");
                 return "navbar/register";
