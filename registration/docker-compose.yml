@@ -2,6 +2,8 @@ version: '3.9'
 
 services:
   postgres:
+    networks:
+      net: null
     container_name: users_container
     image: postgres:latest
     ports:
@@ -11,3 +13,58 @@ services:
       POSTGRES_PASSWORD: aboba
       POSTGRES_DB: registration
     restart: always
+    healthcheck:
+      test: pg_isready -U aboba -d registration
+      interval: 3s
+      retries: 5
+  tests:
+    networks:
+      net: null
+    container_name: tests
+    image: tests
+    build:
+      context: ../python_tests/code
+    volumes:
+      - ../python_tests/code :/tmp/code
+    entrypoint: /bin/bash /tmp/code/start_tests.sh
+    depends_on:
+      postgres:
+        condition: service_healthy
+      app:
+        condition: service_started
+  app:
+    networks:
+      net: null
+    ports:
+      - "8080:8080"
+    build:
+      context: .
+    depends_on:
+      postgres:
+        condition: service_healthy
+    container_name: app
+    environment:
+      - spring.application.name=registration
+      - spring.datasource.url=jdbc:postgresql://postgres:5432/registration
+      - spring.datasource.username=aboba
+      - spring.datasource.password=aboba
+      - server.port=8080
+      - spring.freemarker.expose-request-attributes=true
+      - spring.jpa.hibernate.ddl-auto=create-drop
+      - spring.jackson.serialization.indent_output=true
+      - server.error.include-message=always
+      - spring.web.resources.add-mappings=true
+
+  selenoid:
+    networks:
+      net: null
+    image: "aerokube/selenoid:latest"
+    volumes:
+      - ../python_tests/code/config:/etc/browser
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: [ "-conf", "/etc/browser/browsers.json", "-container-network", "net"]
+
+networks:
+  net:
+    external:
+      name: net

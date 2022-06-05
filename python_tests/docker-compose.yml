@@ -1,0 +1,10 @@
+version: '3.9'
+
+services:
+  tests:
+    container_name: tests
+    image: tests
+    volumes:
+    - ./code:/tmp/code
+    entrypoint: /bin/bash /tmp/code/start_tests.sh
+
