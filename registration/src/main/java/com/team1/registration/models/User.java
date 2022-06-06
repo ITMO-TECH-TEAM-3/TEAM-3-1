@@ -1,13 +1,17 @@
 package com.team1.registration.models;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -15,6 +19,29 @@ import java.util.UUID;
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
+    @Id
+    private UUID id = UUID.randomUUID();
+
+    @NotBlank(message = "Enter your name")
+    @Length(max = 256, message = "Name is too long")
+    @NotNull
+    private String username;
+
+
+    @NotBlank(message = "Enter password")
+    @Length(max = 256, message = "Password is too long")
+    @NotNull
+    private String password;
+
+    private Double balance = 0d;
+
+    private boolean active = false;
+
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    @EqualsAndHashCode.Exclude
+    private Set<Role> roles = new HashSet<>();
 
     @Override
     public boolean isAccountNonExpired() {
@@ -48,25 +75,4 @@ public class User implements UserDetails {
     public boolean isAuthorized() {
         return roles.contains(Role.AUTHORIZED_USER);
     }
-
-    @Id
-    private UUID id = UUID.randomUUID();
-
-    @NotBlank(message = "Enter your name")
-    @Length(max = 256, message = "Name is too long")
-    private String username;
-
-
-    @NotBlank(message = "Enter password")
-    @Length(max = 256, message = "Password is too long")
-    private String password;
-
-    private Double balance = 0d;
-
-    private boolean active;
-
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
-    @Enumerated(EnumType.STRING)
-    private Set<Role> roles;
 }

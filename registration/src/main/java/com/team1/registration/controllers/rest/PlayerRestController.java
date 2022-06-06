@@ -1,4 +1,4 @@
-package com.team1.registration.controllers.player;
+package com.team1.registration.controllers.rest;
 
 import com.team1.registration.models.Player;
 import com.team1.registration.models.Team;
@@ -26,14 +26,9 @@ public class PlayerRestController {
         playerService.registerPlayer(player);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public List<Player> getAllPlayers() {
         return playerService.getAllPlayers();
-    }
-
-    @GetMapping("all")
-    public List<Player> getAllPlayersById(UUID userId) {
-        return playerService.getPlayersByUserId(userId);
     }
 
     // todo: change endpoint
@@ -46,7 +41,7 @@ public class PlayerRestController {
     }
 
     @ResponseStatus(value = HttpStatus.NO_CONTENT, reason = "new team created")
-    @PostMapping("{playerId}/new-team")
+    @PostMapping("/{playerId}/new-team")
     public void createTeam(@PathVariable UUID playerId, @RequestBody Team team) {
         if (!playerService.containsPlayer(playerId)) {
             return;

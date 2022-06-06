@@ -1,4 +1,4 @@
-package com.team1.registration.controllers.team;
+package com.team1.registration.controllers.rest;
 
 import com.team1.registration.models.Team;
 import com.team1.registration.services.TeamService;
