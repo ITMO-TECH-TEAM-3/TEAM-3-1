@@ -32,6 +32,8 @@ services:
         condition: service_healthy
       app:
         condition: service_started
+      selenoid:
+        condition: service_started
   app:
     networks:
       net: null
