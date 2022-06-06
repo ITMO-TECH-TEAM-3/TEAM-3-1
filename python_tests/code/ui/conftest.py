@@ -1,4 +1,5 @@
 import os
+import time
 
 import pytest
 from selenium import webdriver
@@ -76,6 +77,7 @@ def config(request):
 
 
 def get_driver(config):
+    time.sleep(3)
     browser_name = config['browser']
     if browser_name == 'chrome':
         options = ChromeOptions()
@@ -93,6 +95,7 @@ def get_driver(config):
 
 @pytest.fixture(scope='function')
 def browser(config):
+    time.sleep(3)
     url = config['url']
     browser = get_driver(config)
     browser.get(url)
@@ -103,8 +106,8 @@ def browser(config):
 
 @pytest.fixture(scope="function")
 def register_page(browser):
-    # url = f"http://{APP_SERVICE}:{APP_PORT}/register"
-    url = f'http://{APP_SERVICE}:{APP_PORT}/register'
+    url = f"http://{APP_SERVICE}:{APP_PORT}/register"
+    # url = f'http://{APP_SERVICE}:{APP_PORT}/profile'
     page = RegisterPage(browser, url)
     page.open()
     browser.maximize_window()
