@@ -12,5 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: create docker network
+        run: docker network create net
       - name: build docker compose
         run: docker compose --project-directory registration up -d
