@@ -5,7 +5,6 @@ import com.team1.registration.models.User;
 import com.team1.registration.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,17 +21,20 @@ public class UserService implements UserDetailsService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username);
+    public User loadUserByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("Not found user by %s", username)));
     }
 
     public boolean registerUser(User user) {
-        User userFromDb = userRepository.findByUsername(user.getUsername());
+        User userFromDb = userRepository.findByUsername(user.getUsername()).orElse(null);
         if (userFromDb != null) {
             return false;
         }
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.AUTHORIZED_USER));
+//        user.setActive(false);
+//        user.setRoles(Collections.singleton(Role.UNAUTHORIZED_USER));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         log.info("registration of new user {}", user);
@@ -52,22 +54,24 @@ public class UserService implements UserDetailsService {
 
     // For RestControllers
     public void login(User user) {
-        // todo: return correct responses
-        var prevUser = this.getUserById(user.getId());
-        if (!prevUser.getUsername().equals(user.getUsername()) || !prevUser.getPassword().equals(user.getPassword())) {
-            throw new InputMismatchException(String.format("%s login data is incorrect", user));
+        var userFromDb = this.loadUserByUsername(user.getUsername());
+        if (!passwordEncoder.matches(user.getPassword(), userFromDb.getPassword())) {
+            throw new InputMismatchException("Incorrect password");
         }
-        user.setRoles(Collections.singleton(Role.AUTHORIZED_USER));
-        user.setActive(true);
-        userRepository.save(user);
-        log.info("login by user {}", user);
+//        userFromDb.setRoles(Collections.singleton(Role.AUTHORIZED_USER));
+        userFromDb.getRoles().add(Role.AUTHORIZED_USER);
+        userFromDb.setActive(true);
+        userRepository.save(userFromDb);
+        log.info("login by user {}", userFromDb.getUsername());
     }
 
-    public void logout(User user) {
-        user.setActive(false);
-        user.setRoles(Collections.singleton(Role.UNAUTHORIZED_USER));
-        userRepository.save(user);
-        log.info("logout by user {}", user);
+    public void logout(UUID userId) {
+        var userFromDb = this.getUserById(userId);
+        userFromDb.setActive(false);
+//        userFromDb.setRoles(Collections.singleton(Role.UNAUTHORIZED_USER));
+        userFromDb.getRoles().add(Role.UNAUTHORIZED_USER);
+        userRepository.save(userFromDb);
+        log.info("logout by user {}", userFromDb.getUsername());
     }
 
     public List<User> getAllUsers() {

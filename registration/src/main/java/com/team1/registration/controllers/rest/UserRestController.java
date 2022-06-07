@@ -18,9 +18,9 @@ import java.util.UUID;
 public class UserRestController {
     private UserService userService;
 
-    @PostMapping("/register")
+    @PostMapping("/new")
+    @ResponseStatus(value = HttpStatus.OK, reason = "register")
     public void registerUser(@RequestBody User user) {
-        log.info("{} user", user);
         userService.registerUser(user);
     }
 
@@ -29,16 +29,15 @@ public class UserRestController {
         return userService.getAllUsers();
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     @ResponseStatus(value = HttpStatus.OK, reason = "login")
     public void login(@RequestBody User user) {
         userService.login(user);
     }
 
-    @GetMapping("/logout")
+    @PostMapping("/logout/{userId}")
     @ResponseStatus(value = HttpStatus.OK, reason = "logout")
-    public void logout(@RequestBody UUID userId) {
-        var user = userService.getUserById(userId);
-        userService.logout(user);
+    public void logout(@PathVariable UUID userId) {
+        userService.logout(userId);
     }
 }

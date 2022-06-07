@@ -20,7 +20,7 @@ public class PlayerRestController {
     private PlayerService playerService;
     private TeamService teamService;
 
-    @PostMapping
+    @PostMapping("/new")
     @ResponseStatus(value = HttpStatus.OK, reason = "player created")
     public void registerPlayer(@RequestBody Player player) {
         playerService.registerPlayer(player);

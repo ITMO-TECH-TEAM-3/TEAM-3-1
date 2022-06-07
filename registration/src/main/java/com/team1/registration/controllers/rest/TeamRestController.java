@@ -17,7 +17,7 @@ import java.util.UUID;
 public class TeamRestController {
     private TeamService teamService;
 
-    @GetMapping
+    @GetMapping("/all")
     public List<Team> getAllTeams() {
         return teamService.getAllTeams();
     }
