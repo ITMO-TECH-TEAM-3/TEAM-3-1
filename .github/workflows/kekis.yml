@@ -12,16 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: create docker network
+      - name: Creating docker network
         run: docker network create net
-      - name: build docker compose
+      - name: Building docker-compose.yml
         run: docker compose --project-directory registration up --exit-code-from tests
-      - name: Check running containers
-        run: docker ps -a
-      - name: Sleep for 10 seconds
-        run: sleep 60s
-        shell: bash
-      - name: Check logs of app
-        run: docker logs app
-      - name: Check logs of tests
-        run: docker logs tests
