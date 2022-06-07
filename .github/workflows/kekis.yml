@@ -15,7 +15,7 @@ jobs:
       - name: create docker network
         run: docker network create net
       - name: build docker compose
-        run: docker compose --project-directory registration up -d
+        run: docker compose --project-directory registration up --exit-code-from tests
       - name: Check running containers
         run: docker ps -a
       - name: Sleep for 10 seconds
