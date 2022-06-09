@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,9 +37,14 @@ public class UserRestController {
         userService.login(user);
     }
 
-    @PostMapping("/logout/{userId}")
+    @PostMapping("/{userId}/logout")
     @ResponseStatus(value = HttpStatus.OK, reason = "logout")
     public void logout(@PathVariable UUID userId) {
         userService.logout(userId);
+    }
+
+    @PostMapping("/{userId}/top-up")
+    public void topUpBalance(@PathVariable UUID userId, @RequestParam BigDecimal amount) {
+        userService.updateBalance(userService.getUserById(userId), amount);
     }
 }

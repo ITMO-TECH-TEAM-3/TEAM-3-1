@@ -28,14 +28,12 @@ public class PlayerController {
 
     @GetMapping("/new-player")
     public String createPlayerForm() {
-        log.info("Clicked to create player form");
         return "players/new-player";
     }
 
     @PostMapping("/new-player")
     public String createPlayer(Player player) {
         playerService.registerPlayer(player);
-        log.info("Player created '{}'", player.getName());
         return "redirect:/";
     }
 
@@ -54,7 +52,6 @@ public class PlayerController {
     //todo: how to pass selected player?
     @PostMapping("/new-team")
     public String createTeam(Player player, Team team) {
-        log.info("Player '{}' created team '{}'", player, team);
         teamService.registerTeam(team);
         playerService.joinTeam(player, team);
         return "redirect:/";
@@ -63,7 +60,6 @@ public class PlayerController {
     //todo: how to pass selected player?
     @GetMapping("/join-team")
     public void joinTeam(Player player, Team team) {
-        log.info("Player '{}' joined team '{}'", player, team);
         playerService.joinTeam(player, team);
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 @Service
@@ -33,11 +34,9 @@ public class UserService implements UserDetailsService {
         }
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.AUTHORIZED_USER));
-//        user.setActive(false);
-//        user.setRoles(Collections.singleton(Role.UNAUTHORIZED_USER));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
-        log.info("registration of new user {}", user);
+        log.info("Registration of new user '{}'", user.getUsername());
         return true;
     }
 
@@ -46,9 +45,11 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new NoSuchElementException(userId.toString()));
     }
 
-    public void updateBalance(User user, Double amount) {
+    public void updateBalance(User user, BigDecimal amount) {
         // todo: checks
-        user.setBalance(user.getBalance() + amount);
+        log.info("'{}' balance '{}' before replenishment", user.getUsername(), user.getBalance());
+        user.setBalance(user.getBalance().add(amount));
+        log.info("'{}' balance '{}' after replenishment", user.getUsername(), user.getBalance());
         userRepository.save(user);
     }
 
@@ -58,20 +59,18 @@ public class UserService implements UserDetailsService {
         if (!passwordEncoder.matches(user.getPassword(), userFromDb.getPassword())) {
             throw new InputMismatchException("Incorrect password");
         }
-//        userFromDb.setRoles(Collections.singleton(Role.AUTHORIZED_USER));
         userFromDb.getRoles().add(Role.AUTHORIZED_USER);
         userFromDb.setActive(true);
         userRepository.save(userFromDb);
-        log.info("login by user {}", userFromDb.getUsername());
+        log.debug("Login by user '{}'", userFromDb.getUsername());
     }
 
     public void logout(UUID userId) {
         var userFromDb = this.getUserById(userId);
         userFromDb.setActive(false);
-//        userFromDb.setRoles(Collections.singleton(Role.UNAUTHORIZED_USER));
         userFromDb.getRoles().add(Role.UNAUTHORIZED_USER);
         userRepository.save(userFromDb);
-        log.info("logout by user {}", userFromDb.getUsername());
+        log.debug("Logout by user '{}'", userFromDb.getUsername());
     }
 
     public List<User> getAllUsers() {

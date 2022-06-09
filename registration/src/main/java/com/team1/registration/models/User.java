@@ -3,13 +3,15 @@ package com.team1.registration.models;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.lang.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -33,7 +35,8 @@ public class User implements UserDetails {
     @NotNull
     private String password;
 
-    private Double balance = 0d;
+    @DecimalMin(value = "0.0")
+    private BigDecimal balance = new BigDecimal(new BigInteger("0"), 2);
 
     private boolean active = false;
 

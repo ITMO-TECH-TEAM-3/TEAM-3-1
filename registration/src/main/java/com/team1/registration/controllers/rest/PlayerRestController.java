@@ -43,6 +43,7 @@ public class PlayerRestController {
     @ResponseStatus(value = HttpStatus.NO_CONTENT, reason = "new team created")
     @PostMapping("/{playerId}/new-team")
     public void createTeam(@PathVariable UUID playerId, @RequestBody Team team) {
+        // maybe: take out method logic to service?
         if (!playerService.containsPlayer(playerId)) {
             return;
         }

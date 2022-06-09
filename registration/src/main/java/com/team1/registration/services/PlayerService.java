@@ -21,8 +21,8 @@ public class PlayerService {
 
     public void registerPlayer(Player player) {
         //todo: check data for correctness
-        log.info(String.format("Register '%s'", player));
         playerRepository.save(player);
+        log.info("Register '{}'", player.getName());
     }
 
     public List<Player> getAllPlayers() {
@@ -35,8 +35,8 @@ public class PlayerService {
     }
 
     public void updatePlayer(Player player) {
-        log.info(String.format("Updated to '%s'", player));
         playerRepository.save(player);
+        log.debug("Player '{}' updated", player.getName());
     }
 
     public boolean containsPlayer(UUID playerId) {
@@ -52,10 +52,11 @@ public class PlayerService {
         teamService.updateTeam(team);
         this.addTeamToPlayer(player, team);
         this.updatePlayer(player);
+        log.info("Player '{}' joined to team '{}'", player.getName(), team.getName());
     }
 
     public List<Player> getPlayersByUserId(UUID userId) {
-        log.info("Getting all players by usedId '{}'", userId);
+        // todo: add checks
         return playerRepository.getPlayersByUserId(userId);
     }
 }
