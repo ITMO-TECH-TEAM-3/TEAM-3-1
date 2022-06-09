@@ -1,0 +1,18 @@
+name: kekis
+
+on:
+  push:
+    branches: ["main"]
+  
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Creating docker network
+        run: docker network create net
+      - name: Building docker-compose.yml
+        run: docker compose --project-directory registration up --exit-code-from tests

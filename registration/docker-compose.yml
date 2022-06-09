@@ -4,7 +4,7 @@ services:
   postgres:
     networks:
       net: null
-    container_name: users_container
+    container_name: db
     image: postgres:latest
     ports:
       - "5432:5432"
@@ -21,16 +21,17 @@ services:
     networks:
       net: null
     container_name: tests
-    image: tests
     build:
       context: ../python_tests/code
     volumes:
-      - ../python_tests/code :/tmp/code
+      - ../python_tests/code:/tmp/code
     entrypoint: /bin/bash /tmp/code/start_tests.sh
     depends_on:
       postgres:
         condition: service_healthy
       app:
+        condition: service_started
+      selenoid:
         condition: service_started
   app:
     networks:
@@ -42,6 +43,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      selenoid:
+        condition: service_started
     container_name: app
     environment:
       - spring.application.name=registration
@@ -54,16 +57,18 @@ services:
       - spring.jackson.serialization.indent_output=true
       - server.error.include-message=always
       - spring.web.resources.add-mappings=true
-
   selenoid:
+    container_name: solenoid
     networks:
       net: null
     image: "aerokube/selenoid:latest"
     volumes:
       - ../python_tests/code/config:/etc/browser
       - /var/run/docker.sock:/var/run/docker.sock
-    command: [ "-conf", "/etc/browser/browsers.json", "-container-network", "net"]
-
+    command: [ "-conf", "/etc/browser/browsers.json", "-container-network", "net" ]
+  selenoid-chrome:
+    container_name: selenoid-chrome
+    image: "selenoid/chrome:98.0"
 networks:
   net:
     external:
