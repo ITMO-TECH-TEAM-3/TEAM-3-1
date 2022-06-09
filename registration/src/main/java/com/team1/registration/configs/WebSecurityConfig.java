@@ -33,6 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .antMatchers("/", "/register", "/static/**").permitAll()
                     .antMatchers("/users-rest/**", "/players-rest/**", "/teams-rest/**").permitAll()
+                    .antMatchers("/api-docs/**", "/swagger-ui/**").permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .formLogin()
