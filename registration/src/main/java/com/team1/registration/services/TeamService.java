@@ -19,7 +19,7 @@ public class TeamService {
 
     public void registerTeam(Team team) {
         //todo: check data for correctness
-        log.info("Register '{}'", team.getName());
+        log.info("Team registration '{}'", team.getName());
         teamRepository.save(team);
     }
 
@@ -33,7 +33,7 @@ public class TeamService {
     }
 
     public void updateTeam(Team team) {
-        log.info("Updated team '{}'", team.getName());
+        log.info("Updating team '{}'", team.getName());
         teamRepository.save(team);
     }
 

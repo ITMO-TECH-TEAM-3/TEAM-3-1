@@ -28,6 +28,7 @@ public class UserService implements UserDetailsService {
     }
 
     public boolean registerUser(User user) {
+        log.info("New user registration '{}'", user.getUsername());
         User userFromDb = userRepository.findByUsername(user.getUsername()).orElse(null);
         if (userFromDb != null) {
             return false;
@@ -36,7 +37,6 @@ public class UserService implements UserDetailsService {
         user.setRoles(Collections.singleton(Role.AUTHORIZED_USER));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
-        log.info("Registration of new user '{}'", user.getUsername());
         return true;
     }
 
@@ -55,6 +55,7 @@ public class UserService implements UserDetailsService {
 
     // For RestControllers
     public void login(User user) {
+        log.debug("Login by user '{}'", user.getUsername());
         var userFromDb = this.loadUserByUsername(user.getUsername());
         if (!passwordEncoder.matches(user.getPassword(), userFromDb.getPassword())) {
             throw new InputMismatchException("Incorrect password");
@@ -62,15 +63,14 @@ public class UserService implements UserDetailsService {
         userFromDb.getRoles().add(Role.AUTHORIZED_USER);
         userFromDb.setActive(true);
         userRepository.save(userFromDb);
-        log.debug("Login by user '{}'", userFromDb.getUsername());
     }
 
     public void logout(UUID userId) {
+        log.debug("Logout by user '{}'", userId);
         var userFromDb = this.getUserById(userId);
         userFromDb.setActive(false);
         userFromDb.getRoles().add(Role.UNAUTHORIZED_USER);
         userRepository.save(userFromDb);
-        log.debug("Logout by user '{}'", userFromDb.getUsername());
     }
 
     public List<User> getAllUsers() {
