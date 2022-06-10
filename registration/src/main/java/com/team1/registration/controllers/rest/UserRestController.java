@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
@@ -46,5 +45,10 @@ public class UserRestController {
     @PostMapping("/{userId}/top-up")
     public void topUpBalance(@PathVariable UUID userId, @RequestParam BigDecimal amount) {
         userService.updateBalance(userService.getUserById(userId), amount);
+    }
+
+    @DeleteMapping("/{userId}")
+    public void deleteUser(@PathVariable UUID userId) {
+        userService.deleteUser(userId);
     }
 }

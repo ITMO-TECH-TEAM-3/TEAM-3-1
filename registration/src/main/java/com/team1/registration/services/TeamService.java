@@ -29,7 +29,7 @@ public class TeamService {
 
     public Team getTeamById(UUID teamId) {
         return teamRepository.findById(teamId)
-                .orElseThrow(() -> new NoSuchElementException(teamId.toString()));
+                .orElseThrow(() -> new NoSuchElementException(String.format("Team with '%s' doesn't exist!", teamId)));
     }
 
     public void updateTeam(Team team) {
@@ -39,5 +39,10 @@ public class TeamService {
 
     public void addPlayerToTeam(Team team, Player player) {
         team.getPlayers().add(player);
+    }
+
+    public void deleteTeam(UUID teamId) {
+        log.info("Deleting team '{}'", teamId);
+        teamRepository.delete(this.getTeamById(teamId));
     }
 }

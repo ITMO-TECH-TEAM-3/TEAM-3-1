@@ -5,7 +5,6 @@ import com.team1.registration.models.Team;
 import com.team1.registration.repositories.PlayerRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,7 +30,7 @@ public class PlayerService {
 
     public Player getPlayerById(UUID playerId) {
         return playerRepository.findById(playerId)
-                .orElseThrow(() -> new NoSuchElementException(playerId.toString()));
+                .orElseThrow(() -> new NoSuchElementException(String.format("Player with '%s' doesn't exist!", playerId)));
     }
 
     public void updatePlayer(Player player) {
@@ -56,7 +55,11 @@ public class PlayerService {
     }
 
     public List<Player> getPlayersByUserId(UUID userId) {
-        // todo: add checks
         return playerRepository.getPlayersByUserId(userId);
+    }
+
+    public void deletePlayer(UUID playerId) {
+        log.info("Deleting player '{}'", playerId);
+        playerRepository.delete(this.getPlayerById(playerId));
     }
 }

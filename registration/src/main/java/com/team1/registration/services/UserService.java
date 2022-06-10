@@ -28,6 +28,7 @@ public class UserService implements UserDetailsService {
     }
 
     public boolean registerUser(User user) {
+        // todo: check data for correctness
         log.info("New user registration '{}'", user.getUsername());
         User userFromDb = userRepository.findByUsername(user.getUsername()).orElse(null);
         if (userFromDb != null) {
@@ -46,19 +47,20 @@ public class UserService implements UserDetailsService {
     }
 
     public void updateBalance(User user, BigDecimal amount) {
-        // todo: checks
+        if (amount.compareTo(new BigDecimal("0.0")) <= 0) {
+            throw new IllegalArgumentException("Replenishment amount should be positive!");
+        }
         log.info("'{}' balance '{}' before replenishment", user.getUsername(), user.getBalance());
         user.setBalance(user.getBalance().add(amount));
         log.info("'{}' balance '{}' after replenishment", user.getUsername(), user.getBalance());
         userRepository.save(user);
     }
 
-    // For RestControllers
     public void login(User user) {
         log.debug("Login by user '{}'", user.getUsername());
         var userFromDb = this.loadUserByUsername(user.getUsername());
         if (!passwordEncoder.matches(user.getPassword(), userFromDb.getPassword())) {
-            throw new InputMismatchException("Incorrect password");
+            throw new IllegalArgumentException("Incorrect password");
         }
         userFromDb.getRoles().add(Role.AUTHORIZED_USER);
         userFromDb.setActive(true);
@@ -75,5 +77,10 @@ public class UserService implements UserDetailsService {
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    public void deleteUser(UUID userId) {
+        log.info("Deleting user '{}'", userId);
+        userRepository.delete(this.getUserById(userId));
     }
 }

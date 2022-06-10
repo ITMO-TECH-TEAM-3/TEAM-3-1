@@ -9,7 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @RestController
@@ -31,7 +33,6 @@ public class PlayerRestController {
         return playerService.getAllPlayers();
     }
 
-    // todo: change endpoint
     @ResponseStatus(value = HttpStatus.NO_CONTENT, reason = "player joined to team")
     @PostMapping("/{playerId}/join-team/{teamId}")
     public void joinTeam(@PathVariable UUID playerId, @PathVariable UUID teamId) {
@@ -40,16 +41,19 @@ public class PlayerRestController {
         playerService.joinTeam(player, team);
     }
 
-    @ResponseStatus(value = HttpStatus.NO_CONTENT, reason = "new team created")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT, reason = "team created")
     @PostMapping("/{playerId}/new-team")
     public void createTeam(@PathVariable UUID playerId, @RequestBody Team team) {
-        // maybe: take out method logic to service?
         if (!playerService.containsPlayer(playerId)) {
-            return;
+            throw new NoSuchElementException(String.format("Player with '%s' doesn't exist!", playerId));
         }
-        //todo: add response status for the case of not finding the player
         team.setCreatorId(playerId);
         teamService.registerTeam(team);
-        this.joinTeam(playerId, team.getId());
+        playerService.joinTeam(playerService.getPlayerById(playerId), team);
+    }
+
+    @DeleteMapping("/{playerId}")
+    public void deletePlayer(@PathVariable UUID playerId) {
+        playerService.deletePlayer(playerId);
     }
 }
