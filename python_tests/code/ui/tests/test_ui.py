@@ -61,6 +61,7 @@ class TestUI:
         assert main_page.browser.current_url == f"http://{APP_SERVICE}:{APP_PORT}/login?logout", \
             f"actual: {main_page.browser.current_url}, expected: http://{APP_SERVICE}:{APP_PORT}/login?logout"
 
+    @pytest.mark.nologin
     @pytest.mark.parametrize("link_name", [
         NavbarLinksNames.HOME,
         NavbarLinksNames.SIGN_IN,
