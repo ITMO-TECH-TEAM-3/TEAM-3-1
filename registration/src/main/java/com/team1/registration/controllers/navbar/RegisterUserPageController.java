@@ -3,6 +3,7 @@ package com.team1.registration.controllers.navbar;
 import com.team1.registration.controllers.ControllerUtils;
 import com.team1.registration.models.User;
 import com.team1.registration.services.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,13 +15,9 @@ import javax.validation.Valid;
 import java.util.Map;
 
 @Controller
+@AllArgsConstructor
 public class RegisterUserPageController {
     private final UserService userService;
-
-    @Autowired
-    public RegisterUserPageController(UserService userService) {
-        this.userService = userService;
-    }
 
     @PostMapping("/register")
     public String registerUser(@Valid User user, BindingResult bindingResult, Model model, RedirectAttributes attr) {

@@ -9,10 +9,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface PlayerRepository extends JpaRepository<Player, Integer> {
+public interface PlayerRepository extends JpaRepository<Player, UUID> {
     List<Player> getPlayersByUserId(UUID userId);
-
-    Optional<Player> findById(UUID playerId);
-
-    boolean existsById(UUID playerId);
 }

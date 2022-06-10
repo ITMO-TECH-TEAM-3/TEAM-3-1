@@ -1,4 +1,4 @@
-package com.team1.registration.controllers.player;
+package com.team1.registration.controllers.rest;
 
 import com.team1.registration.models.Player;
 import com.team1.registration.models.Team;
@@ -9,7 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @RestController
@@ -20,23 +22,17 @@ public class PlayerRestController {
     private PlayerService playerService;
     private TeamService teamService;
 
-    @PostMapping
+    @PostMapping("/new")
     @ResponseStatus(value = HttpStatus.OK, reason = "player created")
     public void registerPlayer(@RequestBody Player player) {
         playerService.registerPlayer(player);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public List<Player> getAllPlayers() {
         return playerService.getAllPlayers();
     }
 
-    @GetMapping("all")
-    public List<Player> getAllPlayersById(UUID userId) {
-        return playerService.getPlayersByUserId(userId);
-    }
-
-    // todo: change endpoint
     @ResponseStatus(value = HttpStatus.NO_CONTENT, reason = "player joined to team")
     @PostMapping("/{playerId}/join-team/{teamId}")
     public void joinTeam(@PathVariable UUID playerId, @PathVariable UUID teamId) {
@@ -45,15 +41,19 @@ public class PlayerRestController {
         playerService.joinTeam(player, team);
     }
 
-    @ResponseStatus(value = HttpStatus.NO_CONTENT, reason = "new team created")
-    @PostMapping("{playerId}/new-team")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT, reason = "team created")
+    @PostMapping("/{playerId}/new-team")
     public void createTeam(@PathVariable UUID playerId, @RequestBody Team team) {
         if (!playerService.containsPlayer(playerId)) {
-            return;
+            throw new NoSuchElementException(String.format("Player with '%s' doesn't exist!", playerId));
         }
-        //todo: add response status for the case of not finding the player
         team.setCreatorId(playerId);
         teamService.registerTeam(team);
-        this.joinTeam(playerId, team.getId());
+        playerService.joinTeam(playerService.getPlayerById(playerId), team);
+    }
+
+    @DeleteMapping("/{playerId}")
+    public void deletePlayer(@PathVariable UUID playerId) {
+        playerService.deletePlayer(playerId);
     }
 }

@@ -2,6 +2,7 @@ package com.team1.registration.configs;
 
 
 import com.team1.registration.services.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,15 +17,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@AllArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
-
-    @Autowired
-    public WebSecurityConfig(UserService userService, PasswordEncoder passwordEncoder) {
-        this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     @Bean
     public static PasswordEncoder getPasswordEncoder(){
@@ -35,7 +31,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/", "/register", "/players", "/static/**").permitAll()
+                    .antMatchers("/", "/register", "/static/**").permitAll()
+                    .antMatchers("/users-rest/**", "/players-rest/**", "/teams-rest/**").permitAll()
+                    .antMatchers("/api-docs/**", "/swagger-ui/**").permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .formLogin()
@@ -43,7 +41,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll()
                 .and()
                     .logout()
-                    .permitAll();
+                    .permitAll()
+                // for rest
+                .and()
+                    .csrf()
+                    .ignoringAntMatchers("/users-rest/**", "/players-rest/**", "/teams-rest/**");
     }
 
     @Override

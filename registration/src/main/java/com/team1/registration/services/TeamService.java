@@ -19,7 +19,7 @@ public class TeamService {
 
     public void registerTeam(Team team) {
         //todo: check data for correctness
-        log.info(String.format("Register '%s'", team));
+        log.info("Team registration '{}'", team.getName());
         teamRepository.save(team);
     }
 
@@ -29,15 +29,20 @@ public class TeamService {
 
     public Team getTeamById(UUID teamId) {
         return teamRepository.findById(teamId)
-                .orElseThrow(() -> new NoSuchElementException(teamId.toString()));
+                .orElseThrow(() -> new NoSuchElementException(String.format("Team with '%s' doesn't exist!", teamId)));
     }
 
     public void updateTeam(Team team) {
-        log.info(String.format("Updated to '%s'", team));
+        log.info("Updating team '{}'", team.getName());
         teamRepository.save(team);
     }
 
     public void addPlayerToTeam(Team team, Player player) {
         team.getPlayers().add(player);
+    }
+
+    public void deleteTeam(UUID teamId) {
+        log.info("Deleting team '{}'", teamId);
+        teamRepository.delete(this.getTeamById(teamId));
     }
 }

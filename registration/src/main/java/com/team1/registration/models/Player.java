@@ -2,10 +2,10 @@ package com.team1.registration.models;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -31,6 +31,7 @@ public class Player {
     @ToString.Exclude
     private Set<Team> teams = new HashSet<>();
 
+    @NotNull
     private UUID userId;
 
     @Embedded

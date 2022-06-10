@@ -5,7 +5,6 @@ import com.team1.registration.models.Team;
 import com.team1.registration.repositories.PlayerRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,7 +20,7 @@ public class PlayerService {
 
     public void registerPlayer(Player player) {
         //todo: check data for correctness
-        log.info(String.format("Register '%s'", player));
+        log.info("Player registration '{}'", player.getName());
         playerRepository.save(player);
     }
 
@@ -31,11 +30,11 @@ public class PlayerService {
 
     public Player getPlayerById(UUID playerId) {
         return playerRepository.findById(playerId)
-                .orElseThrow(() -> new NoSuchElementException(playerId.toString()));
+                .orElseThrow(() -> new NoSuchElementException(String.format("Player with '%s' doesn't exist!", playerId)));
     }
 
     public void updatePlayer(Player player) {
-        log.info(String.format("Updated to '%s'", player));
+        log.debug("Updating '{}'", player.getName());
         playerRepository.save(player);
     }
 
@@ -48,6 +47,7 @@ public class PlayerService {
     }
 
     public void joinTeam(Player player, Team team) {
+        log.info("Player '{}' joining to team '{}'", player.getName(), team.getName());
         teamService.addPlayerToTeam(team, player);
         teamService.updateTeam(team);
         this.addTeamToPlayer(player, team);
@@ -55,7 +55,11 @@ public class PlayerService {
     }
 
     public List<Player> getPlayersByUserId(UUID userId) {
-        log.info("Getting all players by usedId '{}'", userId);
         return playerRepository.getPlayersByUserId(userId);
+    }
+
+    public void deletePlayer(UUID playerId) {
+        log.info("Deleting player '{}'", playerId);
+        playerRepository.delete(this.getPlayerById(playerId));
     }
 }
