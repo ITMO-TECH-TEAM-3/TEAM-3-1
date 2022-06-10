@@ -58,7 +58,7 @@ services:
       - server.error.include-message=always
       - spring.web.resources.add-mappings=true
   selenoid:
-    container_name: solenoid
+    container_name: selenoid
     networks:
       net: null
     image: "aerokube/selenoid:latest"

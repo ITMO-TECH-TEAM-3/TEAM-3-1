@@ -6,6 +6,8 @@ from selenium import webdriver
 from selenium.webdriver import ChromeOptions
 
 from config.creds import APP_PORT, APP_SERVICE
+from ui.pages.login_page import LoginPage
+from ui.pages.main_page import MainPage
 from ui.pages.register_page import RegisterPage
 
 
@@ -13,7 +15,6 @@ def pytest_addoption(parser):
     parser.addoption("--browser_name", action='store', default='chrome',
                      help='Choose necessary browser')
     parser.addoption('--url', default=f'http://{APP_SERVICE}:{APP_PORT}')
-    # parser.addoption('--url', default=f'http://127.0.0.1:{APP_PORT}')
     parser.addoption("--language", action='store', default='en',
                      help='Choose necessary language')
     parser.addoption("--selenoid", action="store_true")
@@ -25,59 +26,15 @@ def repo_root():
     return os.path.abspath(os.path.join(__file__, os.path.pardir))
 
 
-# @pytest.fixture(scope="function", autouse=True)
-# def log_in(browser, request):
-#     if 'nologin' in request.keywords:
-#         return
-#     LOGIN = "DoKepDoKep"
-#     PASSWORD = "DoKepDoKep"
-#     link = f"http://{APP_SERVICE}:{APP_PORT}/login"
-#     page = LoginPage(browser, link)
-#     page.open()
-#     browser.maximize_window()
-#     page.login(LOGIN, PASSWORD)
-#     return MainPage(browser, browser.current_url)
-
-# @pytest.fixture
-# def browser(request):
-#     browser = None
-#     browser_name = request.config.getoption("browser_name")
-#     language = request.config.getoption("language")
-#     capabilities = {
-#         'browserName': 'chrome',
-#         'version': '98.0'
-#     }
-#     if request.config.getoption("--selenoid"):
-#         if request.config.getoption("--vnc"):
-#             capabilities['enableVNC'] = True
-#         browser = webdriver.Remote(
-#             'http://localhost:4444/wd/hub',
-#             options=Options(),
-#             desired_capabilities=capabilities
-#         )
-#     elif browser_name == "chrome":
-#         options = Options()
-#         options.add_experimental_option("prefs", {'intl.accept_languages': language})
-#         browser = webdriver.Chrome(executable_path=ChromeDriverManager().install())
-#     elif browser_name == 'firefox':
-#         fp = webdriver.FirefoxProfile()
-#         fp.set_preference("intl.accept_languages", language)
-#         browser = webdriver.Firefox(executable_path=GeckoDriverManager().install())
-#     else:
-#         pass
-#     yield browser
-#     browser.quit()
-
-
 @pytest.fixture(scope='session')
 def config(request):
+    time.sleep(10)
     url = request.config.getoption('--url')
     browser = request.config.getoption('--browser_name')
     return {'url': url, 'browser': browser}
 
 
 def get_driver(config):
-    time.sleep(3)
     browser_name = config['browser']
     if browser_name == 'chrome':
         options = ChromeOptions()
@@ -95,7 +52,6 @@ def get_driver(config):
 
 @pytest.fixture(scope='function')
 def browser(config):
-    time.sleep(3)
     url = config['url']
     browser = get_driver(config)
     browser.get(url)
@@ -104,11 +60,42 @@ def browser(config):
     browser.quit()
 
 
+@pytest.fixture(scope="function", autouse=True)
+def log_in(browser, request):
+    if 'nologin' in request.keywords:
+        return
+    LOGIN = "test_username"
+    PASSWORD = "test_password"
+    link = f"http://{APP_SERVICE}:{APP_PORT}/login"
+    page = LoginPage(browser, link)
+    page.open()
+    browser.maximize_window()
+    page.login(LOGIN, PASSWORD)
+    return MainPage(browser, browser.current_url)
+
+
 @pytest.fixture(scope="function")
 def register_page(browser):
-    url = f"http://{APP_SERVICE}:{APP_PORT}/register"
-    # url = f'http://{APP_SERVICE}:{APP_PORT}/profile'
+    url = f'http://{APP_SERVICE}:{APP_PORT}/register'
     page = RegisterPage(browser, url)
+    page.open()
+    browser.maximize_window()
+    return page
+
+
+@pytest.fixture(scope="function")
+def login_page(browser):
+    url = f'http://{APP_SERVICE}:{APP_PORT}/login'
+    page = LoginPage(browser, url)
+    page.open()
+    browser.maximize_window()
+    return page
+
+
+@pytest.fixture(scope="function")
+def main_page(browser):
+    url = f'http://{APP_SERVICE}:{APP_PORT}/'
+    page = MainPage(browser, url)
     page.open()
     browser.maximize_window()
     return page
