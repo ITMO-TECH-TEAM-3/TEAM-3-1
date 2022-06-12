@@ -27,10 +27,10 @@ services:
       - ../python_tests/code:/tmp/code
     entrypoint: /bin/bash /tmp/code/start_tests.sh
     environment:
-      - MYSQL_USER=aboba
-      - MYSQL_HOST=postgres
-      - MYSQL_PORT=5432
-      - MYSQL_PASSWORD=aboba
+      - POSTGRES_USER=aboba
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_PASSWORD=aboba
     depends_on:
       postgres:
         condition: service_healthy
