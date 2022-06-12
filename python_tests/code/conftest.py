@@ -2,8 +2,8 @@ import os
 
 import pytest
 
-from db.client.client import MysqlClient
-from db.utils.builder import MysqlBuilder
+from db.client.client import DatabaseClient
+from db.utils.builder import DatabaseBuilder
 
 
 def repo_root():
@@ -12,21 +12,21 @@ def repo_root():
 
 def pytest_configure(config):
     if not hasattr(config, "workerinput") or str(config.workerinput["workerid"]) == "gw0":
-        mysql_client = MysqlClient(db_name='registration')
+        mysql_client = DatabaseClient(db_name='registration')
         mysql_client.connect(db_created=True)
         mysql_client.connection.close()
 
 
-class MySql:
+class Database:
     @pytest.fixture(scope='function', autouse=True)
     def setup(self, mysql_client):
-        self.client: MysqlClient = mysql_client
-        self.builder: MysqlBuilder = MysqlBuilder(self.client)
+        self.client: DatabaseClient = mysql_client
+        self.builder: DatabaseBuilder = DatabaseBuilder(self.client)
 
 
 @pytest.fixture(scope='session')
-def mysql_client() -> MysqlClient:
-    client = MysqlClient(db_name='registration')
+def mysql_client() -> DatabaseClient:
+    client = DatabaseClient(db_name='registration')
     client.connect()
     yield client
     client.connection.close()

@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="../../static/css/style.css">
     <a class="navbar-brand" style="padding-left: 10px" href="/" id="home">
         <div>
-            <span style="color:deepskyblue">Kes</span><span style="color:deeppink">KISS</span>
+            <span style="color:deepskyblue">Ke</span><span style="color:deeppink">KISS</span>
         </div>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"

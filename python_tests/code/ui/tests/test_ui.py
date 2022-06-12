@@ -3,7 +3,7 @@ import time
 import pytest
 
 from config.creds import APP_PORT, APP_SERVICE
-from conftest import MySql
+from conftest import Database
 from data_generator import MyFaker
 from ui.data.enums.navbar_links_names import NavbarLinksNames
 from ui.data.enums.profile_options_names import ProfileOptionsNames
@@ -14,7 +14,7 @@ from ui.locators.register_page_locators import RegisterPageLocators
 faker = MyFaker()
 
 
-class TestUI(MySql):
+class TestUI(Database):
     @pytest.mark.parametrize("username, password", [("test_username", "test_password")])
     @pytest.mark.nologin
     def test_valid_register(self, register_page, username, password):

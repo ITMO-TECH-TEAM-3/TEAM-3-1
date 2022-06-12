@@ -1,7 +1,7 @@
 from db.models.models import UserModel, PlayerModel, TeamModel
 
 
-class MysqlBuilder:
+class DatabaseBuilder:
     def __init__(self, client):
         self.client = client
 

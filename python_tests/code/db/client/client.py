@@ -1,20 +1,18 @@
+import os
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from db.models.models import UserModel, PlayerModel, TeamModel
 
 
-class MysqlClient:
+class DatabaseClient:
 
     def __init__(self, db_name):
-        # self.user = os.environ['MYSQL_USER']
-        # self.port = os.environ['MYSQL_PORT']
-        # self.password = os.environ['MYSQL_PASSWORD']
-        # self.host = os.environ['MYSQL_HOST']
-        self.user = "aboba"
-        self.port = "5432"
-        self.password = "aboba"
-        self.host = "postgres"
+        self.user = os.environ['MYSQL_USER']
+        self.port = os.environ['MYSQL_PORT']
+        self.password = os.environ['MYSQL_PASSWORD']
+        self.host = os.environ['MYSQL_HOST']
         self.db_name = db_name
 
         self.connection = None
