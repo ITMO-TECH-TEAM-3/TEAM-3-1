@@ -9,10 +9,10 @@ from db.models.models import UserModel, PlayerModel, TeamModel
 class DatabaseClient:
 
     def __init__(self, db_name):
-        self.user = os.environ['MYSQL_USER']
-        self.port = os.environ['MYSQL_PORT']
-        self.password = os.environ['MYSQL_PASSWORD']
-        self.host = os.environ['MYSQL_HOST']
+        self.user = os.environ['POSTGRES_USER']
+        self.port = os.environ['POSTGRES_PORT']
+        self.password = os.environ['POSTGRES_PASSWORD']
+        self.host = os.environ['POSTGRES_HOST']
         self.db_name = db_name
 
         self.connection = None
