@@ -8,6 +8,7 @@ from selenium.webdriver import ChromeOptions
 from config.creds import APP_PORT, APP_SERVICE
 from ui.pages.login_page import LoginPage
 from ui.pages.main_page import MainPage
+from ui.pages.profile_page import ProfilePage
 from ui.pages.register_page import RegisterPage
 
 
@@ -96,6 +97,15 @@ def login_page(browser):
 def main_page(browser):
     url = f'http://{APP_SERVICE}:{APP_PORT}/'
     page = MainPage(browser, url)
+    page.open()
+    browser.maximize_window()
+    return page
+
+
+@pytest.fixture(scope="function")
+def profile_page(browser):
+    url = f'http://{APP_SERVICE}:{APP_PORT}/profile'
+    page = ProfilePage(browser, url)
     page.open()
     browser.maximize_window()
     return page

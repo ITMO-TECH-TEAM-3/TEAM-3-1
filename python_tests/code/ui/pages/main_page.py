@@ -17,3 +17,7 @@ class MainPage(BasePage):
     def navbar_link_transition_is_correct(self, page_name: NavbarLinksNames):
         link = self.browser.current_url
         assert (link, page_name) in NavbarLinksUrlsMatching.items(), f"{link} {page_name}"
+
+    def go_to_profile(self):
+        self.find(MainPageLocators.NavbarLinksLocators.DROPDOWN_MENU_BUTTON).click()
+        self.find(MainPageLocators.NavbarLinksLocators.PROFILE_BUTTON).click()

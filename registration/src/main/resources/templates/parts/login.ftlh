@@ -39,6 +39,7 @@
         </div>
         <br>
         <input type="hidden" name="_csrf" value="${_csrf.token}">
+        <input type="hidden" name="active" value="${true?c}">
         <div><input id="submit" type="submit" class="btn btn-success" value="Sign Up"/></div>
     </form>
 </#macro>

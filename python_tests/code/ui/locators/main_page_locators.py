@@ -11,3 +11,4 @@ class MainPageLocators:
         DROPDOWN_MENU_BUTTON = (By.CSS_SELECTOR, "#dropdownMenuButton")
         LOGOUT_BUTTON = (By.CSS_SELECTOR, "#logout")
         PROFILE_BUTTON = (By.CSS_SELECTOR, "#profile")
+        SUCCESS_REGISTER_ALERT = (By.CSS_SELECTOR, ".alert-success")
