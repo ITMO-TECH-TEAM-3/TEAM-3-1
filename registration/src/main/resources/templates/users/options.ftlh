@@ -11,7 +11,7 @@
             <div class="card bg-dark text-white">
                 <div class="card-header">Replenish the balance</div>
                 <div class="card-body">
-                    <a href="${top_up_path}" class="btn btn-primary btn-sm"> Select </a>
+                    <a id="top_up" href="${top_up_path}" class="btn btn-primary btn-sm"> Select </a>
                 </div>
             </div>
         </div>
@@ -19,7 +19,7 @@
             <div class="card bg-dark text-white">
                 <div class="card-header">Players page</div>
                 <div class="card-body">
-                    <a href="${players_path}" class="btn btn-primary btn-sm"> Select </a>
+                    <a id="players_page" href="${players_path}" class="btn btn-primary btn-sm"> Select </a>
                 </div>
             </div>
         </div>
@@ -27,7 +27,7 @@
             <div class="card bg-dark text-white">
                 <div class="card-header">Teams page</div>
                 <div class="card-body">
-                    <a href="${teams_path}" class="btn btn-primary btn-sm"> Select </a>
+                    <a id="teams_page" href="${teams_path}" class="btn btn-primary btn-sm"> Select </a>
                 </div>
             </div>
         </div>

@@ -38,7 +38,7 @@ public class User implements UserDetails {
     @DecimalMin(value = "0.0")
     private BigDecimal balance = new BigDecimal(new BigInteger("0"), 2);
 
-    private boolean active = false;
+    private Boolean active = false;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))

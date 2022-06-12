@@ -2,7 +2,7 @@
 <#import "../parts/login.ftlh" as l>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <link rel="stylesheet" href="../../static/css/style.css">
-    <a class="navbar-brand" style="padding-left: 10px" href="/">
+    <a class="navbar-brand" style="padding-left: 10px" href="/" id="home">
         <div>
             <span style="color:deepskyblue">Ke</span><span style="color:deeppink">KISS</span>
         </div>
@@ -16,10 +16,10 @@
         <div>
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Tournaments</a>
+                    <a class="nav-link" href="#" id="tournaments">Tournaments</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Organize</a>
+                    <a class="nav-link" href="#" id="organize">Organize</a>
                 </li>
             </ul>
         </div>
@@ -27,15 +27,15 @@
             <#if !isAuthorized>
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/login">
-                        <div id="sign_in">
+                    <a class="nav-link" href="/login" id="sign_in">
+                        <div>
                             Sign in
                         </div>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/register">
-                        <div id="sign_up">
+                    <a class="nav-link" href="/register" id="sign_up">
+                        <div>
                             Sign up
                         </div>
                     </a>
@@ -47,7 +47,7 @@
                             ${name}
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="/profile">Profile</a>
+                            <a class="dropdown-item" href="/profile" id="profile">Profile</a>
                                 <@l.logout/>
 <#--                            todo: replace button to dropdown-item-->
                         </div>
