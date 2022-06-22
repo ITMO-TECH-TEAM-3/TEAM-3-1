@@ -12,6 +12,7 @@
     </head>
     <body>
     <#include "navbar.ftlh">
+    <img src="../../static/files/background.png" alt="Здесь могла быть ваша реклама" width="100%">
     <link rel="stylesheet" href="../../static/css/style.css">
     <div class="container mt-5">
         <#nested>
