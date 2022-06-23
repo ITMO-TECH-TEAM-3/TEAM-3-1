@@ -67,9 +67,10 @@ public class UserService implements UserDetailsService {
     public void login(User user) {
         log.debug("Login by user '{}'", user.getUsername());
         var userFromDb = this.loadUserByUsername(user.getUsername());
-        if (!passwordEncoder.matches(user.getPassword(), userFromDb.getPassword())) {
+        if (!user.getPassword().equals(userFromDb.getPassword())) {
             throw new IllegalArgumentException("Incorrect password");
         }
+        userFromDb.getRoles().remove(Role.UNAUTHORIZED_USER);
         userFromDb.getRoles().add(Role.AUTHORIZED_USER);
         userRepository.save(userFromDb);
     }

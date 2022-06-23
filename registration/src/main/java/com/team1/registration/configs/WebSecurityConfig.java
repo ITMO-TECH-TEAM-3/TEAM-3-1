@@ -1,10 +1,10 @@
 package com.team1.registration.configs;
 
 
+import com.team1.registration.handlers.CustomLoginSuccessHandler;
 import com.team1.registration.handlers.CustomLogoutSuccessHandler;
 import com.team1.registration.services.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 @Configuration
@@ -34,6 +35,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new CustomLogoutSuccessHandler();
     }
 
+    @Bean
+    public AuthenticationSuccessHandler loginSuccessHandler(){
+        return new CustomLoginSuccessHandler();
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -45,6 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .formLogin()
                     .loginPage("/login")
+                    .successHandler(loginSuccessHandler())
                     .permitAll()
                 .and()
                     .logout()
