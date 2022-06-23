@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
@@ -21,8 +22,8 @@ public class UserRestController {
 
     @PostMapping("/new")
     @ResponseStatus(value = HttpStatus.OK, reason = "register")
-    public void registerUser(@RequestBody User user) {
-        userService.registerUser(user);
+    public void registerUser(@RequestBody User user, HttpServletRequest httpServletRequest) {
+        userService.registerUser(user, httpServletRequest);
     }
 
     @GetMapping("/all")
