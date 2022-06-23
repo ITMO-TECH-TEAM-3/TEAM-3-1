@@ -71,14 +71,13 @@ public class UserService implements UserDetailsService {
             throw new IllegalArgumentException("Incorrect password");
         }
         userFromDb.getRoles().add(Role.AUTHORIZED_USER);
-        userFromDb.setActive(true);
         userRepository.save(userFromDb);
     }
 
     public void logout(UUID userId) {
         log.debug("Logout by user '{}'", userId);
         var userFromDb = this.getUserById(userId);
-        userFromDb.setActive(false);
+        userFromDb.getRoles().remove(Role.AUTHORIZED_USER);
         userFromDb.getRoles().add(Role.UNAUTHORIZED_USER);
         userRepository.save(userFromDb);
     }
@@ -90,5 +89,10 @@ public class UserService implements UserDetailsService {
     public void deleteUser(UUID userId) {
         log.info("Deleting user '{}'", userId);
         userRepository.delete(this.getUserById(userId));
+    }
+
+    public User getCurrentUser(){
+        return userRepository.findByRolesContaining(Role.AUTHORIZED_USER)
+                .orElseThrow(() -> new UsernameNotFoundException("Not found current user"));
     }
 }
