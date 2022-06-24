@@ -22,26 +22,30 @@ public class HomePageController {
 
     @GetMapping("/register")
     public String register() {
-        try{
-            userService.getCurrentUser();
-        }
-        catch (UsernameNotFoundException e){
-            return "navbar/register";
-        }
-        return "redirect:/";
+//        try{
+//            userService.getCurrentUser();
+//        }
+//        catch (UsernameNotFoundException e){
+//            return "navbar/register";
+//        }
+        return "navbar/register";
+//        return "redirect:/";
     }
 
     @GetMapping("/login")
     public String login(HttpServletRequest req, Map<String, Object> model) {
-        try{
-            userService.getCurrentUser();
-        }
-        catch (UsernameNotFoundException e){
+//        try{
+//            userService.getCurrentUser();
+//        }
+//        catch (UsernameNotFoundException e){
+//            var y = req.getParameter("error");
+//            model.put("error", y);
+//            return "navbar/login";
+//        }
+//        return "redirect:/";
             var y = req.getParameter("error");
             model.put("error", y);
             return "navbar/login";
-        }
-        return "redirect:/";
     }
 
     @GetMapping("tournaments")

@@ -1,7 +1,6 @@
 package com.team1.registration.configs;
 
 
-import com.team1.registration.handlers.CustomLoginSuccessHandler;
 import com.team1.registration.handlers.CustomLogoutSuccessHandler;
 import com.team1.registration.services.UserService;
 import lombok.AllArgsConstructor;
@@ -14,7 +13,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 @Configuration
@@ -35,10 +33,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new CustomLogoutSuccessHandler();
     }
 
-    @Bean
-    public AuthenticationSuccessHandler loginSuccessHandler(){
-        return new CustomLoginSuccessHandler();
-    }
+//    @Bean
+//    public AuthenticationSuccessHandler loginSuccessHandler(){
+//        return new CustomLoginSuccessHandler();
+//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -51,11 +49,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .formLogin()
                     .loginPage("/login")
-                    .successHandler(loginSuccessHandler())
+//                    .successHandler(loginSuccessHandler())
                     .permitAll()
                 .and()
                     .logout()
-                    .logoutSuccessHandler(logoutSuccessHandler())
+//                    .logoutSuccessHandler(logoutSuccessHandler())
                     .permitAll()
                 // for rest
                 .and()
