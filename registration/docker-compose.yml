@@ -66,7 +66,7 @@ services:
     container_name: selenoid
     networks:
       net: null
-    image: "aerokube/selenoid:latest"
+    image: "aerokube/selenoid:1.10.7"
     volumes:
       - ../python_tests/code/config:/etc/browser
       - /var/run/docker.sock:/var/run/docker.sock
