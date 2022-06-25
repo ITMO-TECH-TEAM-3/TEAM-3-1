@@ -1,9 +1,11 @@
 package com.team1.registration.controllers.player;
 
+import com.team1.registration.models.User;
 import com.team1.registration.services.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,8 +22,11 @@ public class ProfileController {
     private UserService userService;
 
     @GetMapping
-    public String options() {
+    public String options(Model model) {
+        User user = userService.getCurrentUser();
+        model.addAttribute("balance", user.getBalance());
         return "users/options";
+
     }
 
     @GetMapping("/top-up")
@@ -33,7 +38,7 @@ public class ProfileController {
     public String topUpAccount(@RequestParam UUID userId, @RequestParam BigDecimal amount) {
         // todo: checks for amount lower than zero? |  may be checks should be in html code?
         userService.updateBalance(userService.getUserById(userId), amount);
-        return "redirect:/";
+        return "redirect:/profile";
     }
 
     // todo: method from another microservice

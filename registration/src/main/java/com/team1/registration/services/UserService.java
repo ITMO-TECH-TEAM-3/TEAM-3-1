@@ -5,6 +5,8 @@ import com.team1.registration.models.User;
 import com.team1.registration.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -79,8 +81,6 @@ public class UserService implements UserDetailsService {
     public void logout(UUID userId) {
         log.debug("Logout by user '{}'", userId);
         var userFromDb = this.getUserById(userId);
-//        userFromDb.getRoles().remove(Role.AUTHORIZED_USER);
-//        userFromDb.getRoles().add(Role.UNAUTHORIZED_USER);
         userRepository.save(userFromDb);
     }
 
@@ -94,7 +94,15 @@ public class UserService implements UserDetailsService {
     }
 
     public User getCurrentUser(){
-        return userRepository.findByRolesContaining(Role.AUTHORIZED_USER)
-                .orElseThrow(() -> new UsernameNotFoundException("Not found current user"));
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = null;
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        String finalUsername = username;
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new NoSuchElementException(finalUsername));
     }
 }
