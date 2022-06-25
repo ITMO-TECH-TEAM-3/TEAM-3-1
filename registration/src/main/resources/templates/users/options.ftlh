@@ -3,6 +3,7 @@
 <#assign top_up_path="/profile/top-up">
 <#assign players_path="/players">
 <#assign teams_path="/teams">
+<#import "../parts/success_alert.ftlh" as s>
 
 <#--    to do with <#list> -->
 <div id="profile"/>
@@ -16,6 +17,9 @@
         </h4>
     </div>
     <hr class="rounded"><br>
+    <#if top_up_alert??>
+        <@s.success_alert top_up_alert/>
+    </#if>
     <h3>Top scores</h3>
     <div class="container mt-5" id="places">
         <div class="place-card">

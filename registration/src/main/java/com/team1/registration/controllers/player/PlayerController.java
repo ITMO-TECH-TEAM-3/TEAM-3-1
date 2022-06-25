@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.UUID;
 
@@ -28,13 +29,16 @@ public class PlayerController {
 
     @GetMapping("/new-player")
     public String createPlayerForm() {
+
         return "players/new-player";
     }
 
     @PostMapping("/new-player")
-    public String createPlayer(Player player) {
+    public String createPlayer(Player player, RedirectAttributes attr) {
         playerService.registerPlayer(player);
-        return "redirect:/";
+        attr.addFlashAttribute("create_player_alert",
+                String.format("Player %s successfully created!", player.getName()));
+        return "redirect:/players";
     }
 
     @GetMapping("/all")

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -35,9 +36,10 @@ public class ProfileController {
     }
 
     @PostMapping("/top-up")
-    public String topUpAccount(@RequestParam UUID userId, @RequestParam BigDecimal amount) {
+    public String topUpAccount(@RequestParam UUID userId, @RequestParam BigDecimal amount, RedirectAttributes attr) {
         // todo: checks for amount lower than zero? |  may be checks should be in html code?
         userService.updateBalance(userService.getUserById(userId), amount);
+        attr.addFlashAttribute("top_up_alert", String.format("%.2f$ successfully added!", amount));
         return "redirect:/profile";
     }
 
