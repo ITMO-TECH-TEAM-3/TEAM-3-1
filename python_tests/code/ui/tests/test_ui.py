@@ -13,7 +13,6 @@ from ui.locators.register_page_locators import RegisterPageLocators
 
 faker = MyFaker()
 
-
 class TestUI(Database):
     @pytest.mark.parametrize("username, password", [("test_username", "test_password")])
     @pytest.mark.nologin
