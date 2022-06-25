@@ -1,3 +1,2 @@
 *.ftlh linguist-language=html
-* text=auto
-*.sh text eol=lf
+* text=auto eol=lf
