@@ -62,9 +62,20 @@ public class PlayerController {
         return "redirect:/profile";
     }
 
-    //todo: how to pass selected player?
     @GetMapping("/join-team")
-    public void joinTeam(Player player, Team team) {
+    public String joinTeamForm(@RequestParam UUID userId, Model model) {
+        var currentUserPlayers = playerService.getPlayersByUserId(userId);
+        var teams = teamService.getAllTeams();
+        model.addAttribute("players", currentUserPlayers);
+        model.addAttribute("teams", teams);
+        return "players/join-team";
+    }
+
+    @PostMapping("/join-team")
+    public String joinTeam(@RequestParam UUID playerId, @RequestParam UUID teamId) {
+        var player = playerService.getPlayerById(playerId);
+        var team = teamService.getTeamById(teamId);
         playerService.joinTeam(player, team);
+        return "redirect:/profile";
     }
 }
