@@ -29,7 +29,6 @@ public class PlayerController {
 
     @GetMapping("/new-player")
     public String createPlayerForm() {
-
         return "players/new-player";
     }
 
@@ -49,16 +48,18 @@ public class PlayerController {
     }
 
     @GetMapping("/new-team")
-    public String createTeamForm() {
+    public String createTeamForm(@RequestParam UUID userId, Model model) {
+        var currentUserPlayers = playerService.getPlayersByUserId(userId);
+        model.addAttribute("players", currentUserPlayers);
         return "players/new-team";
     }
 
-    //todo: how to pass selected player?
     @PostMapping("/new-team")
-    public String createTeam(Player player, Team team) {
+    public String createTeam(Team team) {
+        var player = playerService.getPlayerById(team.getCreatorId());
         teamService.registerTeam(team);
         playerService.joinTeam(player, team);
-        return "redirect:/";
+        return "redirect:/profile";
     }
 
     //todo: how to pass selected player?

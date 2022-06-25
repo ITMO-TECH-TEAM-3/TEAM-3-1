@@ -19,7 +19,6 @@
                         <td>${player.name}</td>
                         <#if player.teams?? && (player.teams?size != 0)>
                             <#list player.teams as t>
-                                <td>aboba</td>
                                 <td>${(t.name??)?string('${t.name}', 'None')}</td>
                             </#list>
                         <#else>

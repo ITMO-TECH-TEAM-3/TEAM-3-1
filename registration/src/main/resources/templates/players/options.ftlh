@@ -23,7 +23,10 @@
             <div class="card bg-dark text-white">
                 <div class="card-header">Create team</div>
                 <div class="card-body">
-                    <a href="${create_team_path}" id="create_team" class="btn btn-primary btn-sm"> Select </a>
+                    <form action="${create_team_path}" method="get">
+                        <input type="hidden" name="userId" value="${userId}">
+                        <input id="get_all_players" class="btn btn-primary btn-sm" type="submit" value="Select">
+                    </form>
                 </div>
             </div>
         </div>
