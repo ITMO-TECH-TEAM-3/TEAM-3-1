@@ -1,2 +1,3 @@
 *.ftlh linguist-language=html
-* text=auto eol=lf
+core.eol=native
+core.autocrlf=true
