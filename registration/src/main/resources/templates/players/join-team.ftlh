@@ -1,18 +1,21 @@
 <#import "../parts/common.ftlh" as c>
 <#include "../parts/security.ftlh">
 
-<#assign form_path="/players/new-team">
+<#assign form_path="/players/join-team">
 
 <@c.page>
     <form action="${form_path}" method="post">
         <input type="hidden" name="_csrf" value="${_csrf.token}">
         <div class="form-group">
-            <label for="name">Team name</label>
-            <input name="name" class="form-control" id="name" placeholder="aboba team">
-            <br>
-            <select class="form-select" aria-label="Default select example" name="creatorId">
+            <select class="form-select" aria-label="Default select example" name="playerId">
                 <#list players as p>
                     <option value="${p.id}">${p.name}</option>
+                </#list>
+            </select>
+            <br>
+            <select class="form-select" aria-label="Default select example" name="teamId">
+                <#list teams as t>
+                    <option value="${t.id}">${t.name}</option>
                 </#list>
             </select>
         </div>
