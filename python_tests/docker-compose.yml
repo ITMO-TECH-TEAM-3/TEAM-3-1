@@ -6,5 +6,5 @@ services:
     image: tests
     volumes:
     - ./code:/tmp/code
-    entrypoint: /bin/bash /tmp/code/start_tests.sh
+    entrypoint: /bin/sh /tmp/code/start_tests.sh
 
