@@ -1,6 +1,7 @@
 from data_generator import MyFaker
 from ui.locators.register_page_locators import RegisterPageLocators
 from ui.pages.base_page import BasePage
+from ui.pages.main_page import MainPage
 
 faker = MyFaker()
 
@@ -10,6 +11,7 @@ class RegisterPage(BasePage):
         username_input = self.find(RegisterPageLocators.USERNAME_INPUT).send_keys(username)
         password_input = self.find(RegisterPageLocators.PASSWORD_INPUT).send_keys(password)
         submit_btn = self.find(RegisterPageLocators.SUBMIT_BUTTON).click()
+        return MainPage(self.browser, self.browser.current_url)
 
     def fake_invalid_user_data(self,
                                username=None,

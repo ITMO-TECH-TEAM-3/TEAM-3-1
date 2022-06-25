@@ -5,11 +5,15 @@ import com.team1.registration.models.User;
 import com.team1.registration.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -27,17 +31,23 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("Not found user by %s", username)));
     }
 
-    public boolean registerUser(User user) {
+    public boolean registerUser(User user, HttpServletRequest httpServletRequest) {
         // todo: check data for correctness
         log.info("New user registration '{}'", user.getUsername());
         User userFromDb = userRepository.findByUsername(user.getUsername()).orElse(null);
         if (userFromDb != null) {
             return false;
         }
-//        user.setActive(true);
+        String decodePassword = user.getPassword();
         user.setRoles(Collections.singleton(Role.AUTHORIZED_USER));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
+        try{
+            httpServletRequest.login(user.getUsername(), decodePassword);
+        }
+        catch (ServletException e){
+            log.debug("auto login failed");
+        }
         return true;
     }
 
@@ -65,13 +75,12 @@ public class UserService implements UserDetailsService {
         userFromDb.getRoles().add(Role.AUTHORIZED_USER);
         userFromDb.setActive(true);
         userRepository.save(userFromDb);
+
     }
 
     public void logout(UUID userId) {
         log.debug("Logout by user '{}'", userId);
         var userFromDb = this.getUserById(userId);
-        userFromDb.setActive(false);
-        userFromDb.getRoles().add(Role.UNAUTHORIZED_USER);
         userRepository.save(userFromDb);
     }
 
@@ -82,5 +91,18 @@ public class UserService implements UserDetailsService {
     public void deleteUser(UUID userId) {
         log.info("Deleting user '{}'", userId);
         userRepository.delete(this.getUserById(userId));
+    }
+
+    public User getCurrentUser(){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = null;
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        String finalUsername = username;
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new NoSuchElementException(finalUsername));
     }
 }

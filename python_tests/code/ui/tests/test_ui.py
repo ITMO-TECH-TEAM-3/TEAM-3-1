@@ -19,10 +19,10 @@ class TestUI(Database):
     @pytest.mark.nologin
     def test_valid_register(self, register_page, username, password):
         time.sleep(10)
-        register_page.register(username, password)
-        assert register_page.is_element_present(MainPageLocators.NavbarLinksLocators.SUCCESS_REGISTER_ALERT)
-        assert register_page.browser.current_url == f"http://{APP_SERVICE}:{APP_PORT}/", \
-            f"actual: {register_page.browser.current_url}, expected: http://{APP_SERVICE}:{APP_PORT}/"
+        main_page = register_page.register(username, password)
+        assert main_page.is_element_present(MainPageLocators.NavbarLinksLocators.SUCCESS_REGISTER_ALERT)
+        assert main_page.browser.current_url == f"http://{APP_SERVICE}:{APP_PORT}/", \
+            f"actual: {main_page.browser.current_url}, expected: http://{APP_SERVICE}:{APP_PORT}/"
         assert self.client.user_was_created_with_correspondent_data(username, {
             "username": username,
             "password": password
@@ -36,10 +36,9 @@ class TestUI(Database):
     @pytest.mark.parametrize("username, password", [("test_username", "test_password")])
     @pytest.mark.nologin
     def test_valid_login(self, login_page, username, password):
-        login_page.login(username, password)
+        main_page = login_page.login(username, password)
         assert login_page.browser.current_url == f"http://{APP_SERVICE}:{APP_PORT}/", \
             f"actual: {login_page.browser.current_url}, expected: http://{APP_SERVICE}:{APP_PORT}/"
-
     @pytest.mark.parametrize("username, password", [("invalid_username", "invalid_password")])
     @pytest.mark.nologin
     def test_invalid_login(self, login_page, username, password):

@@ -4,8 +4,12 @@
 <#assign create_player_path="/players/new-player">
 <#assign create_team_path="/players/new-team">
 <#assign get_all_players_path="/players/all">
+<#import "../parts/success_alert.ftlh" as s>
 
 <@c.page>
+    <#if create_player_alert??>
+        <@s.success_alert create_player_alert/>
+    </#if>
     <div class="row">
         <div class="col">
             <div class="card bg-dark text-white">
