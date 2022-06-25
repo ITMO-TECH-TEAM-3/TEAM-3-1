@@ -18,7 +18,7 @@ class TestUI(Database):
     @pytest.mark.parametrize("username, password", [("test_username", "test_password")])
     @pytest.mark.nologin
     def test_valid_register(self, register_page, username, password):
-        time.sleep(10)
+        time.sleep(20)
         main_page = register_page.register(username, password)
         assert main_page.is_element_present(MainPageLocators.NavbarLinksLocators.SUCCESS_REGISTER_ALERT)
         assert main_page.browser.current_url == f"http://{APP_SERVICE}:{APP_PORT}/", \
