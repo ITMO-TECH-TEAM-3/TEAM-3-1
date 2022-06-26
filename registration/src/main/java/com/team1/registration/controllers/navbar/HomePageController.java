@@ -46,8 +46,11 @@ public class HomePageController {
     }
 
     @GetMapping("tournaments")
-    public String tournaments(Model model) {
-        model.addAttribute("tournaments_banner", true);
+    public String tournaments() {
         return "navbar/tournaments";
+    }
+    @GetMapping("tournaments/new")
+    public String createTournament(){
+        return "tournaments/new-tournament";
     }
 }

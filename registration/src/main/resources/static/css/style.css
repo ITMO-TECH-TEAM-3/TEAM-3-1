@@ -72,7 +72,7 @@ tr, th, td{
 }
 
 .tournaments_banner{
-    height: 270px;
+    height: 245px;
     background-image: url(../files/challonge_fireball_dark_blue.svg);
     background-color: #252830;
     background-repeat: no-repeat;
@@ -85,7 +85,7 @@ tr, th, td{
 }
 
 .tournament-container{
-    padding-bottom: 104px;
+    padding-bottom: 5px;
     height: auto;
     display: flex;
     align-items: center;
@@ -143,4 +143,16 @@ p{
     padding: 6px 12px;
     font-size: 14px;
     line-height: 1.428571429;
+}
+.card-body{
+    color: #4f4f4f !important;
+    background: linear-gradient(to left, #9FA4C4, #BBF0F3);
+    border-radius: 15px;
+}
+.gradient-custom-4 {
+    color: #4f4f4f !important;
+    width: 300px;
+    background: #84fab0;
+    background: -webkit-linear-gradient(to left, #FC575E, #F7B42C);
+    background: linear-gradient(to left, #FC575E, #F7B42C)
 }
