@@ -55,11 +55,14 @@ public class PlayerController {
     }
 
     @PostMapping("/new-team")
-    public String createTeam(Team team) {
+    public String createTeam(Team team, RedirectAttributes attr) {
         var player = playerService.getPlayerById(team.getCreatorId());
         teamService.registerTeam(team);
         playerService.joinTeam(player, team);
-        return "redirect:/profile";
+        attr.addFlashAttribute("create_team_alert",
+                String.format("Team %s successfully created by %s!", team.getName(), player.getName()));
+        return "redirect:/players";
+
     }
 
     @GetMapping("/join-team")
@@ -72,10 +75,12 @@ public class PlayerController {
     }
 
     @PostMapping("/join-team")
-    public String joinTeam(@RequestParam UUID playerId, @RequestParam UUID teamId) {
+    public String joinTeam(@RequestParam UUID playerId, @RequestParam UUID teamId, RedirectAttributes attr) {
         var player = playerService.getPlayerById(playerId);
         var team = teamService.getTeamById(teamId);
         playerService.joinTeam(player, team);
-        return "redirect:/profile";
+        attr.addFlashAttribute("join_team_alert",
+                String.format("Player %s successfully joined %s team!", player.getName(), team.getName()));
+        return "redirect:/players";
     }
 }
