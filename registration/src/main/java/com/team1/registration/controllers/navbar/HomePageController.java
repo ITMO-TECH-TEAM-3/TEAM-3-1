@@ -3,6 +3,7 @@ package com.team1.registration.controllers.navbar;
 import com.team1.registration.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
@@ -45,8 +46,8 @@ public class HomePageController {
     }
 
     @GetMapping("tournaments")
-    public String tournaments() {
-        // todo: fix name
-        return "tournaments";
+    public String tournaments(Model model) {
+        model.addAttribute("tournaments_banner", true);
+        return "navbar/tournaments";
     }
 }

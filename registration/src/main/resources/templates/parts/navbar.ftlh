@@ -1,6 +1,6 @@
 <#include "security.ftlh">
 <#import "../parts/login.ftlh" as l>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: relative">
     <link rel="stylesheet" href="../../static/css/style.css">
     <a class="navbar-brand" style="padding-left: 10px" href="/" id="home">
         <div>
@@ -16,10 +16,7 @@
         <div>
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#" id="tournaments">Tournaments</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" id="organize">Organize</a>
+                    <a class="nav-link" href="/tournaments" id="tournaments">Tournaments</a>
                 </li>
             </ul>
         </div>
