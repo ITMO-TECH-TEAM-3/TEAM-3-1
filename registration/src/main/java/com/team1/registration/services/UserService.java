@@ -32,7 +32,6 @@ public class UserService implements UserDetailsService {
     }
 
     public boolean registerUser(User user, HttpServletRequest httpServletRequest) {
-        // todo: check data for correctness
         log.info("New user registration '{}'", user.getUsername());
         User userFromDb = userRepository.findByUsername(user.getUsername()).orElse(null);
         if (userFromDb != null) {
@@ -95,14 +94,13 @@ public class UserService implements UserDetailsService {
 
     public User getCurrentUser(){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = null;
+        String username;
         if (principal instanceof UserDetails) {
             username = ((UserDetails)principal).getUsername();
         } else {
             username = principal.toString();
         }
-        String finalUsername = username;
         return userRepository.findByUsername(username)
-                .orElseThrow(() -> new NoSuchElementException(finalUsername));
+                .orElseThrow(() -> new NoSuchElementException(username));
     }
 }

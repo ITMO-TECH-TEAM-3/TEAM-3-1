@@ -4,7 +4,6 @@ import com.team1.registration.controllers.ControllerUtils;
 import com.team1.registration.models.User;
 import com.team1.registration.services.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

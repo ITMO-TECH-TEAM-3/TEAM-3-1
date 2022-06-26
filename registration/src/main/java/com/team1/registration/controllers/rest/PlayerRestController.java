@@ -1,7 +1,6 @@
 package com.team1.registration.controllers.rest;
 
 import com.team1.registration.models.Player;
-import com.team1.registration.models.Team;
 import com.team1.registration.models.dto.PlayerDto;
 import com.team1.registration.models.dto.TeamDto;
 import com.team1.registration.services.PlayerService;
@@ -11,9 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @RestController
