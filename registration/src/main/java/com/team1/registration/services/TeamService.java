@@ -2,9 +2,14 @@ package com.team1.registration.services;
 
 import com.team1.registration.models.Player;
 import com.team1.registration.models.Team;
+import com.team1.registration.models.dto.TeamDto;
+import com.team1.registration.repositories.PlayerRepository;
 import com.team1.registration.repositories.TeamRepository;
 import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,15 +17,28 @@ import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @Service
-@AllArgsConstructor
 @Slf4j
 public class TeamService {
-    private TeamRepository teamRepository;
+    private final TeamRepository teamRepository;
+    private final PlayerService playerService;
 
-    public void registerTeam(Team team) {
-        //todo: check data for correctness
+    public TeamService(TeamRepository repo, @Lazy PlayerService serv) {
+        teamRepository = repo;
+        playerService = serv;
+    }
+
+    public void registerTeam(TeamDto teamDto) {
+        var creatorId = teamDto.getCreatorId();
+        if (!playerService.containsPlayer(creatorId)) {
+            throw new NoSuchElementException(String.format("Player with '%s' doesn't exist!", creatorId));
+        }
+        var team = new Team().toBuilder()
+                .name(teamDto.getName())
+                .creatorId(creatorId)
+                .build();
         log.info("Team registration '{}'", team.getName());
         teamRepository.save(team);
+        playerService.joinTeam(playerService.getPlayerById(creatorId), team);
     }
 
     public List<Team> getAllTeams() {

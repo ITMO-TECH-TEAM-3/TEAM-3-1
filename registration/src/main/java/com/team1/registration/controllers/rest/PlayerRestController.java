@@ -2,6 +2,8 @@ package com.team1.registration.controllers.rest;
 
 import com.team1.registration.models.Player;
 import com.team1.registration.models.Team;
+import com.team1.registration.models.dto.PlayerDto;
+import com.team1.registration.models.dto.TeamDto;
 import com.team1.registration.services.PlayerService;
 import com.team1.registration.services.TeamService;
 import lombok.AllArgsConstructor;
@@ -24,8 +26,8 @@ public class PlayerRestController {
 
     @PostMapping("/new")
     @ResponseStatus(value = HttpStatus.OK, reason = "player created")
-    public void registerPlayer(@RequestBody Player player) {
-        playerService.registerPlayer(player);
+    public void registerPlayer(@RequestBody PlayerDto playerDto) {
+        playerService.registerPlayer(playerDto);
     }
 
     @GetMapping("/all")
@@ -36,20 +38,16 @@ public class PlayerRestController {
     @ResponseStatus(value = HttpStatus.NO_CONTENT, reason = "player joined to team")
     @PostMapping("/{playerId}/join-team/{teamId}")
     public void joinTeam(@PathVariable UUID playerId, @PathVariable UUID teamId) {
-        var player = playerService.getPlayerById(playerId);
-        var team = teamService.getTeamById(teamId);
-        playerService.joinTeam(player, team);
+        playerService.joinTeam(
+                playerService.getPlayerById(playerId),
+                teamService.getTeamById(teamId)
+        );
     }
 
     @ResponseStatus(value = HttpStatus.NO_CONTENT, reason = "team created")
-    @PostMapping("/{playerId}/new-team")
-    public void createTeam(@PathVariable UUID playerId, @RequestBody Team team) {
-        if (!playerService.containsPlayer(playerId)) {
-            throw new NoSuchElementException(String.format("Player with '%s' doesn't exist!", playerId));
-        }
-        team.setCreatorId(playerId);
-        teamService.registerTeam(team);
-        playerService.joinTeam(playerService.getPlayerById(playerId), team);
+    @PostMapping("/new-team")
+    public void createTeam(@RequestBody TeamDto teamDto) {
+        teamService.registerTeam(teamDto);
     }
 
     @DeleteMapping("/{playerId}")

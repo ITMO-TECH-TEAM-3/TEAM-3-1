@@ -1,15 +1,18 @@
 package com.team1.registration.controllers.player;
 
 
-import com.team1.registration.models.Player;
-import com.team1.registration.models.Team;
+import com.team1.registration.models.dto.PlayerDto;
+import com.team1.registration.models.dto.TeamDto;
 import com.team1.registration.services.PlayerService;
 import com.team1.registration.services.TeamService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.UUID;
@@ -33,10 +36,10 @@ public class PlayerController {
     }
 
     @PostMapping("/new-player")
-    public String createPlayer(Player player, RedirectAttributes attr) {
-        playerService.registerPlayer(player);
+    public String createPlayer(PlayerDto playerDto, RedirectAttributes attr) {
+        playerService.registerPlayer(playerDto);
         attr.addFlashAttribute("create_player_alert",
-                String.format("Player %s successfully created!", player.getName()));
+                String.format("Player %s successfully created!", playerDto.getName()));
         return "redirect:/players";
     }
 
@@ -55,12 +58,10 @@ public class PlayerController {
     }
 
     @PostMapping("/new-team")
-    public String createTeam(Team team, RedirectAttributes attr) {
-        var player = playerService.getPlayerById(team.getCreatorId());
-        teamService.registerTeam(team);
-        playerService.joinTeam(player, team);
+    public String createTeam(TeamDto teamDto, RedirectAttributes attr) {
+        teamService.registerTeam(teamDto);
         attr.addFlashAttribute("create_team_alert",
-                String.format("Team %s successfully created by %s!", team.getName(), player.getName()));
+                String.format("Team %s successfully created!", teamDto.getName()));
         return "redirect:/players";
 
     }
