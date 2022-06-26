@@ -70,3 +70,89 @@ h1, h2, h3, h4, p{
 tr, th, td{
     color:white;
 }
+
+.tournaments_banner{
+    height: 245px;
+    background-image: url(../files/challonge_fireball_dark_blue.svg);
+    background-color: #252830;
+    background-repeat: no-repeat;
+    background-size: 50%;
+    background-position: right center;
+    margin-bottom: 32px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.tournament-container{
+    padding-bottom: 5px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+.tournament-btn{
+    flex: 1 40%;
+}
+
+.trophy-img{
+    flex: 1 60%;
+    margin-left: auto;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+
+.lead {
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.4;
+}
+
+p{
+    margin: 0 0 10px;
+}
+
+.page-heading {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    font-weight: 300;
+}
+
+#create_tournament, .btn-sm {
+    color: #fff;
+    background-color: #FF7324;
+    border-color: #FF7324;
+    text-transform: uppercase;
+    border-radius: 3px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    display: inline-block;
+    margin-bottom: 0;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+}
+#create_tournament_2{
+    color: #4f4f4f !important;
+    background: linear-gradient(to left, #9FA4C4, #BBF0F3);
+    border-radius: 15px;
+}
+.gradient-custom-4 {
+    color: #4f4f4f !important;
+    width: 300px;
+    background: #84fab0;
+    background: -webkit-linear-gradient(to left, #FC575E, #F7B42C);
+    background: linear-gradient(to left, #FC575E, #F7B42C)
+}
