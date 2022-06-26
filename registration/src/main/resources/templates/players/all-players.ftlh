@@ -11,21 +11,32 @@
         </tr>
         </thead>
         <tbody>
-
+        <#assign i = 1>
         <#list players>
             <#items as player>
+                <#if !player.teams?? || player.teams?size == 0>
                     <tr>
-                        <th scope="row">${player?counter}</th>
+                        <th scope="row">${i}</th>
                         <td>${player.name}</td>
-                        <#if player.teams?? && (player.teams?size != 0)>
-                            <#list player.teams as t>
-                                <td>aboba</td>
-                                <td>${(t.name??)?string('${t.name}', 'None')}</td>
-                            </#list>
-                        <#else>
-                            <td>None</td>
-                        </#if>
+                        <td>None</td>
+                        <#assign i++>
+                        <#continue>
                     </tr>
+                </#if>
+                <#list player.teams>
+                    <#items as t>
+                        <tr>
+                            <th scope="row">${i}</th>
+                            <td>${player.name}</td>
+                            <#if (player.teams?size != 0)>
+                                <td>${(t.name??)?string('${t.name}', 'None')}</td>
+                            <#else>
+                                <td>None</td>
+                            </#if>
+                            <#assign i++>
+                        </tr>
+                    </#items>
+                </#list>
             </#items>
         </#list>
         </tbody>
