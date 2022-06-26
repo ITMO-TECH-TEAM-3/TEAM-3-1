@@ -144,7 +144,7 @@ p{
     font-size: 14px;
     line-height: 1.428571429;
 }
-.card-body{
+#create_tournament_2{
     color: #4f4f4f !important;
     background: linear-gradient(to left, #9FA4C4, #BBF0F3);
     border-radius: 15px;
