@@ -2,9 +2,10 @@ package com.team1.registration.services;
 
 import com.team1.registration.models.Player;
 import com.team1.registration.models.Team;
+import com.team1.registration.models.dto.PlayerDto;
 import com.team1.registration.repositories.PlayerRepository;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,14 +13,21 @@ import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @Service
-@AllArgsConstructor
 @Slf4j
 public class PlayerService {
-    private PlayerRepository playerRepository;
-    private TeamService teamService;
+    private final PlayerRepository playerRepository;
+    private final TeamService teamService;
 
-    public void registerPlayer(Player player) {
-        //todo: check data for correctness
+    public PlayerService(PlayerRepository repo, @Lazy TeamService serv) {
+        playerRepository = repo;
+        teamService = serv;
+    }
+
+    public void registerPlayer(PlayerDto playerDto) {
+        var player = new Player().toBuilder()
+                .name(playerDto.getName())
+                .userId(playerDto.getUserId())
+                .build();
         log.info("Player registration '{}'", player.getName());
         playerRepository.save(player);
     }

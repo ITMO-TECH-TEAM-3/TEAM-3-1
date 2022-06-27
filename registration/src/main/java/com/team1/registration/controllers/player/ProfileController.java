@@ -27,7 +27,6 @@ public class ProfileController {
         User user = userService.getCurrentUser();
         model.addAttribute("balance", user.getBalance());
         return "users/options";
-
     }
 
     @GetMapping("/top-up")
@@ -36,15 +35,12 @@ public class ProfileController {
     }
 
     @PostMapping("/top-up")
-    public String topUpAccount(@RequestParam UUID userId, @RequestParam BigDecimal amount, RedirectAttributes attr) {
-        // todo: checks for amount lower than zero? |  may be checks should be in html code?
+    public String topUp(@RequestParam UUID userId, @RequestParam BigDecimal amount, RedirectAttributes attr) {
+        if (amount.compareTo(new BigDecimal("0")) != 1) {
+            throw new IllegalArgumentException("Top up amount is not positive");
+        }
         userService.updateBalance(userService.getUserById(userId), amount);
         attr.addFlashAttribute("top_up_alert", String.format("%.2f$ successfully added!", amount));
         return "redirect:/profile";
-    }
-
-    // todo: method from another microservice
-    public void makeBet(Integer userId) {
-
     }
 }

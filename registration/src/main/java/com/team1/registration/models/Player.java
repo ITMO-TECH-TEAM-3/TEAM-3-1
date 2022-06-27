@@ -33,7 +33,4 @@ public class Player {
 
     @NotNull
     private UUID userId;
-
-    @Embedded
-    private PlayerStatistics playerStatistics = new PlayerStatistics();
 }
