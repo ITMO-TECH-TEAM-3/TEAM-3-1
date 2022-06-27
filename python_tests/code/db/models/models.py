@@ -20,7 +20,6 @@ class PlayerModel(Base):
 
     id = Column(UUID(as_uuid=True), primary_key=True, nullable=False)
     name = Column(String(255), unique=True, nullable=False)
-    kills = Column(Integer, default=0)
     user_id = Column(UUID(as_uuid=True), nullable=False)
 
 
