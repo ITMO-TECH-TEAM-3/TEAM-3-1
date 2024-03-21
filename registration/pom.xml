@@ -106,7 +106,6 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>10.1.0</version>
                 <configuration>
-                    <url>jdbc:postgresql://localhost:5432/</url>
                     <user>aboba</user>
                     <password>aboba</password>
                 </configuration>
