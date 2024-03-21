@@ -17,9 +17,7 @@
     <description>registration</description>
 
     <properties>
-        <java.version>16</java.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.release>15</maven.compiler.release>
+        <java.version>17</java.version>
     </properties>
 
     <dependencies>
@@ -45,6 +43,16 @@
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-database-postgresql</artifactId>
+            <version>10.1.0</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
         </dependency>
 
         <dependency>
@@ -96,7 +104,12 @@
             <plugin>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
-                <version>10.7.1</version>
+                <version>10.1.0</version>
+                <configuration>
+                    <url>jdbc:postgresql://localhost:5432/</url>
+                    <user>aboba</user>
+                    <password>aboba</password>
+                </configuration>
             </plugin>
 
             <plugin>
